@@ -15,10 +15,12 @@ const expectedModels = [
   "Kimi K3",
   "Qwen 3.8 Max",
   "Ox",
+  "DeepSeek V4 flash 0731",
   "GLM 5.2",
   "Claude Opus 4.8",
 ]
 const newestModelsFirst = [
+  "DeepSeek V4 flash 0731",
   "Ox",
   "Qwen 3.8 Max",
   "Kimi K3",

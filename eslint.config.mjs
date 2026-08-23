@@ -7,6 +7,7 @@ const eslintConfig = defineConfig([
   ...nextTs,
   {
     files: [
+      "src/components/model-showcases/deepseek-v4-flash/**/*.{ts,tsx}",
       "src/components/model-showcases/kimi-2.7-code/**/*.{ts,tsx}",
       "src/components/model-showcases/glm-5.2/**/*.{ts,tsx}",
     ],

@@ -7,6 +7,7 @@ const MODEL_SLUGS = [
   "kimi-k3",
   "qwen-3.8-max",
   "ox",
+  "deepseek-v4-flash",
   "glm-5.2",
   "claude-opus-4.8",
 ]
