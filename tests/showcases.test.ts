@@ -18,8 +18,12 @@ const expectedModels = [
   "DeepSeek V4 flash 0731",
   "GLM 5.2",
   "Claude Opus 4.8",
+  "Claude Opus 5",
+  "Claude sonnet 5",
 ]
 const newestModelsFirst = [
+  "Claude Opus 5",
+  "Claude sonnet 5",
   "DeepSeek V4 flash 0731",
   "Ox",
   "Qwen 3.8 Max",

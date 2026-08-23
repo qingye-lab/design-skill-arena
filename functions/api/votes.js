@@ -10,6 +10,8 @@ const MODEL_SLUGS = [
   "deepseek-v4-flash",
   "glm-5.2",
   "claude-opus-4.8",
+  "claude-opus-5",
+  "claude-sonnet-5",
 ]
 const SHOWCASE_IDS = [
   "standard-builder",
