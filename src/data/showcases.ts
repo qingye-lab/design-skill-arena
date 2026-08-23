@@ -1,5 +1,7 @@
 import type { ShowcaseItem } from "@/types/showcase"
 import { CLAUDE_MODEL_SLUG, claudeShowcases } from "@/data/claude-opus-4.8-showcases"
+import { CLAUDE_OPUS_5_MODEL_SLUG, claudeOpus5Showcases } from "@/data/claude-opus-5-showcases"
+import { CLAUDE_SONNET_5_MODEL_SLUG, claudeSonnet5Showcases } from "@/data/claude-sonnet-5-showcases"
 import { GLM_MODEL_SLUG, glmShowcases } from "@/data/glm-5.2-showcases"
 import { coverScreenshots } from "@/data/showcase-assets"
 
@@ -337,9 +339,21 @@ const registeredShowcases: ShowcaseItem[] = [
     id: `${CLAUDE_MODEL_SLUG}-${item.id}`,
     sourceUrl: item.id,
   })),
+  ...claudeOpus5Showcases.map((item) => ({
+    ...item,
+    id: `${CLAUDE_OPUS_5_MODEL_SLUG}-${item.id}`,
+    sourceUrl: item.id,
+  })),
+  ...claudeSonnet5Showcases.map((item) => ({
+    ...item,
+    id: `${CLAUDE_SONNET_5_MODEL_SLUG}-${item.id}`,
+    sourceUrl: item.id,
+  })),
 ]
 
 const modelDisplayOrder = [
+  "Claude Opus 5",
+  "Claude sonnet 5",
   "DeepSeek V4 flash 0731",
   "Ox",
   "Qwen 3.8 Max",
