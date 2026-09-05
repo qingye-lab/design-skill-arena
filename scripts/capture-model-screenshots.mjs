@@ -22,6 +22,8 @@ process.env.PLAYWRIGHT_BROWSERS_PATH ??= "0"
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const modelNames = new Map([
+  ["fable-5.1", "Fable 5.1"],
+  ["glm-5.3-flash", "GLM 5.3 Flash"],
   ["gpt-6-astra", "GPT 6 Astra"],
   ["deepseek-v4-flash", "DeepSeek V4 flash 0731"],
   ["kimi-k3", "Kimi K3"],
