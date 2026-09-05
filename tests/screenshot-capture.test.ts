@@ -18,6 +18,9 @@ describe("screenshot capture safety", () => {
     expect(captureSource.lastIndexOf("buildStaticArtifact(modelSlug)")).toBeLessThan(
       captureSource.lastIndexOf("await captureModel(modelSlug, baseUrl, cwebpPath)")
     )
+    expect(captureSource.lastIndexOf("await captureModel(modelSlug, baseUrl, cwebpPath)")).toBeLessThan(
+      captureSource.lastIndexOf("syncCapturedAssetsToStaticArtifact(modelSlug)")
+    )
   })
 
   it("limits screenshot builds to one Next.js worker", () => {
@@ -26,5 +29,12 @@ describe("screenshot capture safety", () => {
     expect(nextConfigSource).toContain('process.env.NEXT_SCREENSHOT_BUILD === "1"')
     expect(nextConfigSource).toContain("cpus: 1")
     expect(nextConfigSource).toContain("staticGenerationMaxConcurrency: 1")
+  })
+
+  it("requires extra free memory when Cumora is above its normal safety limit", () => {
+    expect(captureSource).toContain("minBuildMemoryFreePercentWithBusyCumora = 45")
+    expect(captureSource).toContain("minCaptureMemoryFreePercentWithBusyCumora = 35")
+    expect(captureSource).toContain("memoryFreePercent < minBusyCumoraFreePercent")
+    expect(captureSource).toContain("cumoraTreeRssKiB > maxCumoraTreeRssKiB")
   })
 })

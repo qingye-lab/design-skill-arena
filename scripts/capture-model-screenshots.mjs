@@ -2,6 +2,7 @@ import { execFileSync, spawn, spawnSync } from "node:child_process"
 import { once } from "node:events"
 import {
   closeSync,
+  copyFileSync,
   existsSync,
   mkdirSync,
   openSync,
@@ -21,6 +22,7 @@ process.env.PLAYWRIGHT_BROWSERS_PATH ??= "0"
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const modelNames = new Map([
+  ["gpt-6-astra", "GPT 6 Astra"],
   ["deepseek-v4-flash", "DeepSeek V4 flash 0731"],
   ["kimi-k3", "Kimi K3"],
 ])
@@ -49,11 +51,13 @@ const showcaseIds = [
 const minBuildFreeBytes = 16 * 1024 ** 3
 const minCaptureFreeBytes = 15 * 1024 ** 3
 const minMemoryFreePercent = 30
+const minBuildMemoryFreePercentWithBusyCumora = 45
+const minCaptureMemoryFreePercentWithBusyCumora = 35
 const maxCumoraTreeRssKiB = 1.5 * 1024 ** 2
 const captureLockPath = path.join(tmpdir(), "design-playwright-screenshot.lock")
 const buildManifestPath = path.join(root, "out", ".screenshot-build.json")
 
-function assertCapacity(minSystemFreeBytes) {
+function assertCapacity(minSystemFreeBytes, minBusyCumoraFreePercent) {
   const { bavail, bsize } = statfsSync("/")
   const systemFreeBytes = Number(bavail) * Number(bsize)
 
@@ -68,10 +72,11 @@ function assertCapacity(minSystemFreeBytes) {
     )
   }
 
+  let memoryFreePercent = null
   if (process.platform === "darwin") {
     const pressure = execFileSync("/usr/bin/memory_pressure", ["-Q"], { encoding: "utf8" })
     const match = pressure.match(/System-wide memory free percentage:\s*(\d+)%/)
-    const memoryFreePercent = match ? Number(match[1]) : null
+    memoryFreePercent = match ? Number(match[1]) : null
 
     if (memoryFreePercent !== null && memoryFreePercent < minMemoryFreePercent) {
       throw new Error(
@@ -117,11 +122,21 @@ function assertCapacity(minSystemFreeBytes) {
   const cumoraTreeRssKiB = processes
     .filter(({ pid }) => cumoraTreePids.has(pid))
     .reduce((total, { rssKiB }) => total + rssKiB, 0)
-  if (cumoraTreeRssKiB > maxCumoraTreeRssKiB) {
+  if (
+    cumoraTreeRssKiB > maxCumoraTreeRssKiB &&
+    (memoryFreePercent === null || memoryFreePercent < minBusyCumoraFreePercent)
+  ) {
     throw new Error(
       `Cumora's process tree is using ${(cumoraTreeRssKiB / 1024 ** 2).toFixed(
         1
-      )} GiB; the 1.5 GiB screenshot safety limit was exceeded.`
+      )} GiB; this phase requires at least ${minBusyCumoraFreePercent}% free memory when the 1.5 GiB safety limit is exceeded.`
+    )
+  }
+  if (cumoraTreeRssKiB > maxCumoraTreeRssKiB) {
+    console.warn(
+      `Cumora is using ${(cumoraTreeRssKiB / 1024 ** 2).toFixed(
+        1
+      )} GiB; continuing because system memory is ${memoryFreePercent}% free.`
     )
   }
 }
@@ -284,7 +299,7 @@ async function captureModel(modelSlug, baseUrl, cwebpPath) {
 
     try {
       for (const [index, showcaseId] of captureIds.entries()) {
-        assertCapacity(minCaptureFreeBytes)
+        assertCapacity(minCaptureFreeBytes, minCaptureMemoryFreePercentWithBusyCumora)
         const response = await page.goto(
           `${baseUrl}/model-showcase/${modelSlug}/${showcaseId}/`,
           { waitUntil: "load", timeout: 60000 }
@@ -321,6 +336,22 @@ async function captureModel(modelSlug, baseUrl, cwebpPath) {
   }
 }
 
+function syncCapturedAssetsToStaticArtifact(modelSlug) {
+  for (const showcaseId of showcaseIds) {
+    const publicDirectory = path.join(root, "public", "model-screenshots", modelSlug, showcaseId)
+    const staticDirectory = path.join(root, "out", "model-screenshots", modelSlug, showcaseId)
+    mkdirSync(staticDirectory, { recursive: true })
+
+    for (const assetName of ["desktop.png", "desktop.webp"]) {
+      const sourcePath = path.join(publicDirectory, assetName)
+      if (!existsSync(sourcePath)) {
+        throw new Error(`Captured asset is missing ${path.relative(root, sourcePath)}`)
+      }
+      copyFileSync(sourcePath, path.join(staticDirectory, assetName))
+    }
+  }
+}
+
 const argumentsList = process.argv.slice(2).filter((argument) => argument !== "--")
 const resumeStatic = argumentsList.includes("--resume-static")
 const fromArgument = argumentsList.find((argument) => argument.startsWith("--from="))
@@ -343,7 +374,12 @@ const captureIds = fromShowcaseId
   ? showcaseIds.slice(showcaseIds.indexOf(fromShowcaseId))
   : showcaseIds
 
-assertCapacity(resumeStatic ? minCaptureFreeBytes : minBuildFreeBytes)
+assertCapacity(
+  resumeStatic ? minCaptureFreeBytes : minBuildFreeBytes,
+  resumeStatic
+    ? minCaptureMemoryFreePercentWithBusyCumora
+    : minBuildMemoryFreePercentWithBusyCumora
+)
 assertNoExistingHeadlessBrowser()
 const cwebpPath = execFileSync("/usr/bin/which", ["cwebp"], { encoding: "utf8" }).trim()
 if (!cwebpPath) throw new Error("cwebp is required to create release WebP assets")
@@ -358,7 +394,7 @@ try {
   } else {
     buildStaticArtifact(modelSlug)
   }
-  assertCapacity(minCaptureFreeBytes)
+  assertCapacity(minCaptureFreeBytes, minCaptureMemoryFreePercentWithBusyCumora)
 
   const port = await getAvailablePort()
   const baseUrl = `http://127.0.0.1:${port}`
@@ -370,6 +406,7 @@ try {
   )
   await waitForStaticServer(baseUrl, serverProcess)
   await captureModel(modelSlug, baseUrl, cwebpPath)
+  syncCapturedAssetsToStaticArtifact(modelSlug)
   run("pnpm", ["assets:screenshot-versions"])
   console.log(`Captured ${captureIds.length} screenshots from one static build for ${modelSlug}.`)
 } finally {

@@ -8,6 +8,7 @@ const MODEL_SLUGS = [
   "qwen-3.8-max",
   "ox",
   "deepseek-v4-flash",
+  "gpt-6-astra",
   "glm-5.2",
   "claude-opus-4.8",
   "claude-opus-5",

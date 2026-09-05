@@ -16,12 +16,14 @@ const expectedModels = [
   "Qwen 3.8 Max",
   "Ox",
   "DeepSeek V4 flash 0731",
+  "GPT 6 Astra",
   "GLM 5.2",
   "Claude Opus 4.8",
   "Claude Opus 5",
   "Claude sonnet 5",
 ]
 const newestModelsFirst = [
+  "GPT 6 Astra",
   "Claude Opus 5",
   "Claude sonnet 5",
   "DeepSeek V4 flash 0731",

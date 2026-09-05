@@ -313,6 +313,7 @@ const models = [
   { model: "Qwen 3.8 Max", provider: "Alibaba Cloud", slug: "qwen-3.8-max" },
   { model: "Ox", provider: "OpenAI", slug: "ox" },
   { model: "DeepSeek V4 flash 0731", provider: "DeepSeek", slug: "deepseek-v4-flash" },
+  { model: "GPT 6 Astra", provider: "OpenAI", slug: "gpt-6-astra" },
 ] as const
 
 const generatedShowcases: ShowcaseItem[] = models.flatMap(({ model, provider, slug }) =>
@@ -352,6 +353,7 @@ const registeredShowcases: ShowcaseItem[] = [
 ]
 
 const modelDisplayOrder = [
+  "GPT 6 Astra",
   "Claude Opus 5",
   "Claude sonnet 5",
   "DeepSeek V4 flash 0731",
