@@ -311,9 +311,10 @@ const models = [
   { model: "GPT 5.6 Sol", provider: "OpenAI", slug: "gpt-5.6-sol" },
   { model: "Kimi K3", provider: "Moonshot", slug: "kimi-k3" },
   { model: "Qwen 3.8 Max", provider: "Alibaba Cloud", slug: "qwen-3.8-max" },
-  { model: "Ox", provider: "OpenAI", slug: "ox" },
+  { model: "GLM 5.3 Flash", provider: "Zhipu", slug: "glm-5.3-flash" },
   { model: "DeepSeek V4 flash 0731", provider: "DeepSeek", slug: "deepseek-v4-flash" },
   { model: "GPT 6 Astra", provider: "OpenAI", slug: "gpt-6-astra" },
+  { model: "Fable 5.1", provider: "Anthropic", slug: "fable-5.1" },
 ] as const
 
 const generatedShowcases: ShowcaseItem[] = models.flatMap(({ model, provider, slug }) =>
@@ -353,11 +354,12 @@ const registeredShowcases: ShowcaseItem[] = [
 ]
 
 const modelDisplayOrder = [
+  "Fable 5.1",
   "GPT 6 Astra",
   "Claude Opus 5",
   "Claude sonnet 5",
   "DeepSeek V4 flash 0731",
-  "Ox",
+  "GLM 5.3 Flash",
   "Qwen 3.8 Max",
   "Kimi K3",
   "GPT 5.6 Sol",

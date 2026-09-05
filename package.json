@@ -6,6 +6,8 @@
     "assets:screenshot-versions": "node scripts/generate-screenshot-asset-versions.mjs",
     "playwright:install": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium",
     "capture:model": "PLAYWRIGHT_BROWSERS_PATH=0 node scripts/capture-model-screenshots.mjs",
+    "capture:fable-5.1": "pnpm capture:model fable-5.1",
+    "capture:glm-5.3-flash": "pnpm capture:model glm-5.3-flash",
     "capture:gpt-6-astra": "pnpm capture:model gpt-6-astra",
     "capture:deepseek-v4-flash": "pnpm capture:model deepseek-v4-flash",
     "capture:kimi-k3": "pnpm capture:model kimi-k3",
