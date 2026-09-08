@@ -10,7 +10,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
   const isHome = pathname === "/"
   const isModelShowcase = pathname.startsWith("/model-showcase/")
 
-  if (isHome || isModelShowcase) {
+  if (isHome || isModelShowcase || /^\/(skills|methodology)\/?$/.test(pathname)) {
     return <>{children}</>
   }
 

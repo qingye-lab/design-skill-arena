@@ -14,6 +14,14 @@ Design Skill Arena is a static gallery for observing how different AI models imp
 
 Each entry opens a real standalone page. The project is a **showcase, not a benchmark**: it avoids aggregate scores and rankings so visitors can inspect the actual product experience and make their own judgment.
 
+## Explore the collection
+
+- The homepage alternates between models and skill chains in a deterministic order. Search or fix a model/chain to narrow the collection.
+- Open a work for its capture, design intent, skill sources, and reusable chain context. The interactive work remains a standalone page.
+- Filters, pagination, the current work, and language are encoded in the URL for sharing and browser navigation.
+- `/skills/` lists public skill sources and related chains. `/methodology/` explains the common brief, limitations, and the separate 18-work contribution template.
+- Generation dates and skill versions are shown as unrecorded where evidence is unavailable. Optional likes do not affect ordering.
+
 ## Why this project exists
 
 The quality of AI-generated frontend work depends on more than the model. Design context, skill composition, component constraints, responsive implementation, and the refinement process all shape the result.
@@ -33,7 +41,7 @@ The goal is not to declare a universal winner. It is to observe questions such a
 - How do component systems, responsiveness, and polish affect the result?
 - How do model capability and design methodology interact?
 
-## What you can compare
+## What you can explore
 
 - Information architecture and page rhythm
 - Visual hierarchy and typography

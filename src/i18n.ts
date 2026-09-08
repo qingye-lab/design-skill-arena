@@ -50,7 +50,7 @@ export const messages = {
     },
     footer: {
       line1: "Design Skill Arena 使用本地 mock 数据、静态路由和独立结果页。",
-      line2: "当前版本不调用模型 API，不接数据库，不使用 Server Actions、KV、Blob 或 ISR。",
+      line2: "作品交互使用本地模拟数据；喜欢是可选的访客反馈，不参与作品排序。",
     },
     gallery: {
       allModels: "全部模型",
@@ -112,7 +112,7 @@ export const messages = {
     },
     footer: {
       line1: "Design Skill Arena uses local mock data, static routes, and standalone result pages.",
-      line2: "This version does not call model APIs, databases, Server Actions, KV, Blob, or ISR.",
+      line2: "Work interactions use local mock data. Optional visitor likes do not affect ordering.",
     },
     gallery: {
       allModels: "All models",
