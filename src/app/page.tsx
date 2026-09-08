@@ -1,4 +1,5 @@
 import { HomePage } from "@/components/arena/home-page"
+import { getPublicArenaSkills } from "@/lib/public-arena-skills"
 import { showcases } from "@/data/showcases"
 
 const siteUrl = "https://arena.xflux.cn"
@@ -44,7 +45,7 @@ export default function Page() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <HomePage />
+      <HomePage sources={getPublicArenaSkills()} />
     </>
   )
 }

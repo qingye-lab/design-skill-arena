@@ -41,6 +41,8 @@ ${chains
 ## URL Pattern / 页面规则
 
 - Home: ${siteUrl}/
+- Skills: ${siteUrl}/skills/
+- Shared brief and limitations: ${siteUrl}/methodology/
 - Showcase page: ${siteUrl}/model-showcase/{modelSlug}/{showcaseId}
 - Example: ${siteUrl}/model-showcase/gpt-55/standard-builder
 

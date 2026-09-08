@@ -31,12 +31,17 @@ export const skills: SkillRecord[] = [
       "强调视觉表现、构图、克制动效和去模板化表达，用于生成更有视觉区分度的页面。",
     summaryEn:
       "A visual frontend skill focused on stronger art direction, composition, restrained motion, and less template-like output.",
-    localPath: "/Users/tangyuan/.codex/skills/frontend-skill/SKILL.md",
+    localPath: "/Users/tangyuan/.agents/skills/frontend-skill/SKILL.md",
     officialUrl:
       "https://developers.openai.com/blog/designing-delightful-frontends-with-gpt-5-4",
+    githubUrl:
+      "https://github.com/openai/skills/tree/82d2c5b44ac234ec0f204f647562a4349d90ef43/skills/.curated/frontend-skill",
     installCommands: ["Already installed locally"],
     usageCommands: ["Use when the page needs stronger art direction or visual hierarchy."],
-    notes: ["作为 Visual Frontend 组合的 skill 来源记录。", "本地已安装，可直接读取 SKILL.md。"],
+    notes: [
+      "作为 Visual Frontend 组合的 skill 来源记录。",
+      "安装在通用 Skills 目录；固定为官方移除前最后可用版本，并非当前维护版本。",
+    ],
   },
   {
     id: "frontend-design",
@@ -73,7 +78,7 @@ export const skills: SkillRecord[] = [
     officialUrl: "https://impeccable.style/",
     githubUrl: "https://github.com/pbakaus/impeccable",
     installCommands: ["Already installed locally"],
-    usageCommands: ["node .agents/skills/impeccable/scripts/context.mjs"],
+    usageCommands: ["<skill>/scripts/impeccable context"],
     notes: ["本项目已补充 PRODUCT.md 供后续 impeccable 流程读取。"],
   },
   {
@@ -91,7 +96,7 @@ export const skills: SkillRecord[] = [
     githubUrl:
       "https://github.com/anthropics/skills/blob/main/skills/web-artifacts-builder/SKILL.md",
     installCommands: ["Already installed locally"],
-    usageCommands: ["Use for elaborate, multi-component Codex.ai HTML artifacts."],
+    usageCommands: ["Use for elaborate, multi-component HTML artifacts."],
     notes: ["作为 Artifact Builder 组合的 skill 来源记录。"],
   },
   {
@@ -108,7 +113,7 @@ export const skills: SkillRecord[] = [
     githubUrl: "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
     installCommands: ["Already installed locally"],
     usageCommands: [
-      "python3 <skill>/scripts/ui_ux_db.py search --domain ux --query accessibility",
+      "python3 <skill>/scripts/search.py \"focus visible keyboard\" --domain ux",
     ],
     notes: ["作为 UX Pro Reference 组合的 skill 来源记录。"],
   },
@@ -175,8 +180,10 @@ export const skills: SkillRecord[] = [
       "Vercel Labs' web interface guidelines, used as a reference for keyboard behavior, focus, accessibility, and interaction details.",
     officialUrl: "https://vercel.com/design/guidelines",
     githubUrl: "https://github.com/vercel-labs/web-interface-guidelines",
-    installCommands: ["curl -fsSL https://vercel.com/design/guidelines/install | bash"],
-    usageCommands: ["/web-interface-guidelines <file-or-pattern>"],
+    installCommands: [
+      "npx skills add https://github.com/vercel-labs/agent-skills --skill web-design-guidelines",
+    ],
+    usageCommands: ["/web-design-guidelines <file-or-pattern>"],
     notes: ["第一版记录为外部 guideline，不作为运行时依赖。"],
   },
 ]
