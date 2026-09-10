@@ -7,6 +7,8 @@ import { allModels, showcases } from "@/data/showcases"
 import { messages } from "@/i18n"
 
 const expectedModels = [
+  "Hy4",
+  "DeepSeek V4.1 flash",
   "GPT-5.5",
   "Qwen 3.7 Max",
   "Kimi 2.7 Code",
@@ -24,6 +26,8 @@ const expectedModels = [
   "Claude sonnet 5",
 ]
 const newestModelsFirst = [
+  "Hy4",
+  "DeepSeek V4.1 flash",
   "Fable 5.1",
   "GPT 6 Astra",
   "Claude Opus 5",

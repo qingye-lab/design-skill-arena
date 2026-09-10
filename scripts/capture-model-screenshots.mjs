@@ -27,6 +27,7 @@ const modelNames = new Map([
   ["gpt-6-astra", "GPT 6 Astra"],
   ["deepseek-v4-flash", "DeepSeek V4 flash 0731"],
   ["kimi-k3", "Kimi K3"],
+  ["hy-4", "Hy4"],
 ])
 const supportedModels = new Set(modelNames.keys())
 const showcaseIds = [

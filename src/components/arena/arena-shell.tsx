@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useEffect, type ReactNode } from "react"
-import { ArrowUpRight, Menu } from "lucide-react"
+import { ArrowUpRight, Copy, Menu } from "lucide-react"
 import type { ArenaLocale } from "@/lib/arena-gallery"
 import { arenaCopy } from "./arena-copy"
 import styles from "./arena.module.css"
@@ -14,12 +14,13 @@ export function localeHref(path: string, locale: ArenaLocale) {
   return `${url.pathname}${url.search}${url.hash}`
 }
 
-export function ArenaShell({ locale, onLocaleChange, current, children, collectionHref = "/" }: {
+export function ArenaShell({ locale, onLocaleChange, current, children, collectionHref = "/", onPromptOpen }: {
   locale: ArenaLocale
   onLocaleChange: (locale: ArenaLocale) => void
   current: "works" | "skills" | "method"
   children: ReactNode
   collectionHref?: string
+  onPromptOpen?: () => void
 }) {
   const text = arenaCopy(locale)
   useEffect(() => { document.documentElement.lang = locale === "zh-CN" ? "zh-CN" : "en" }, [locale])
@@ -40,12 +41,14 @@ export function ArenaShell({ locale, onLocaleChange, current, children, collecti
           {links.map((link) => <Link key={link.key} href={localeHref(link.href, locale)} aria-current={current === link.key ? "page" : undefined}>{link.label}</Link>)}
         </nav>
         <div className={styles.navSecondary}>
+          {onPromptOpen && <button className={`${styles.iconButton} ${styles.promptAction}`} onClick={onPromptOpen}><Copy size={13} />{text.copyPrompt}</button>}
           <a className={styles.iconButton} href={projectUrl} target="_blank" rel="noreferrer" aria-label={text.github}><span>GitHub</span><ArrowUpRight size={12} /></a>
           <div className={styles.languageSwitch} role="group" aria-label={locale === "zh-CN" ? "界面语言" : "Interface language"}><button aria-pressed={locale === "zh-CN"} onClick={() => onLocaleChange("zh-CN")}>中文</button><button aria-pressed={locale === "en-US"} onClick={() => onLocaleChange("en-US")}>English</button></div>
           <details className={styles.mobileMenu}>
             <summary className={styles.iconButton} aria-label={text.menu}><Menu size={19} /></summary>
             <nav aria-label={text.menu}>
               {links.map((link) => <Link key={link.key} href={localeHref(link.href, locale)} aria-current={current === link.key ? "page" : undefined} onClick={(event) => event.currentTarget.closest("details")?.removeAttribute("open")}>{link.label}</Link>)}
+              {onPromptOpen && <button onClick={(event) => { onPromptOpen(); event.currentTarget.closest("details")?.removeAttribute("open") }}><Copy size={13} />{text.copyPrompt}</button>}
               <a href={projectUrl} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={13} /></a>
             </nav>
           </details>

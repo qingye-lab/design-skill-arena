@@ -1,4 +1,6 @@
 const MODEL_SLUGS = [
+  "hy-4",
+  "deepseek-v4.1-flash",
   "gpt-55",
   "qwen-37-max",
   "kimi-2.7-code",

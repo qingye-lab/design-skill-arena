@@ -11,6 +11,7 @@
     "capture:gpt-6-astra": "pnpm capture:model gpt-6-astra",
     "capture:deepseek-v4-flash": "pnpm capture:model deepseek-v4-flash",
     "capture:kimi-k3": "pnpm capture:model kimi-k3",
+    "capture:hy-4": "pnpm capture:model hy-4",
     "dev": "next dev",
     "build": "pnpm assets:screenshot-versions && next build",
     "build:static": "pnpm assets:screenshot-versions && NEXT_OUTPUT=export next build",

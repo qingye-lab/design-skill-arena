@@ -8,9 +8,10 @@ import { showcases } from "@/data/showcases"
 import { arenaHref, chainId, galleryItems, GALLERY_PAGE_SIZE, getChains, getModels, modelSlug, pageNumbers, type ArenaState } from "@/lib/arena-gallery"
 import type { PublicArenaSkill } from "@/lib/public-arena-skills"
 import { assetUrl } from "@/lib/assets"
+import { contributionContext } from "@/lib/arena-context"
 import { arenaCopy } from "./arena-copy"
 import { ArenaShell, localeHref } from "./arena-shell"
-import { SearchFilter } from "./arena-controls"
+import { ArenaDialog, CopyButton, SearchFilter } from "./arena-controls"
 import { ShowcaseCard } from "./showcase-card"
 import { useArenaLocation } from "./use-arena-location"
 import { useArenaVotes } from "./use-arena-votes"
@@ -25,6 +26,7 @@ export function HomePage({ sources }: { sources: PublicArenaSkill[] }) {
   const { state, update } = useArenaLocation()
   const text = arenaCopy(state.locale)
   const [filtersOpen, setFiltersOpen] = useState(false)
+  const [promptOpen, setPromptOpen] = useState(false)
   const [dismissedRepair, setDismissedRepair] = useState(false)
   const collectionRef = useRef<HTMLHeadingElement>(null)
   const filtered = useMemo(() => galleryItems(showcases, state), [state])
@@ -33,6 +35,7 @@ export function HomePage({ sources }: { sources: PublicArenaSkill[] }) {
   const selectedItem = showcases.find((item) => item.id === state.item)
   const votes = useArenaVotes(pageItems.map((item) => item.id))
   const activeFilters = state.model !== "all" || state.chain !== "all" || Boolean(state.query)
+  const prompt = contributionContext(state.locale)
   function filter(patch: Partial<ArenaState>, replace = false) { update({ ...patch, page: 1, item: null }, replace) }
   function clear() { filter({ model: "all", chain: "all", query: "" }) }
   function open(id: string) { update({ item: id }) }
@@ -40,7 +43,7 @@ export function HomePage({ sources }: { sources: PublicArenaSkill[] }) {
     update({ page })
     requestAnimationFrame(() => { collectionRef.current?.scrollIntoView({ block: "start" }); collectionRef.current?.focus({ preventScroll: true }) })
   }
-  return <ArenaShell locale={state.locale} onLocaleChange={(locale) => update({ locale })} current="works" collectionHref={arenaHref("/", state, { item: null })}>
+  return <ArenaShell locale={state.locale} onLocaleChange={(locale) => update({ locale })} current="works" collectionHref={arenaHref("/", state, { item: null })} onPromptOpen={() => setPromptOpen(true)}>
     <main id="main-content">
       {state.repaired && !dismissedRepair && <div className={styles.notice} role="status"><span>{text.shareRepair}</span><button className={styles.iconButton} aria-label={text.dismiss} onClick={() => { setDismissedRepair(true); update({}, true) }}><X size={16} /></button></div>}
         <section className={styles.intro}>
@@ -77,5 +80,11 @@ export function HomePage({ sources }: { sources: PublicArenaSkill[] }) {
         </section>
     </main>
     {selectedItem && <WorkDetail sources={sources} item={selectedItem} locale={state.locale} device={state.device} onDeviceChange={(device) => update({ device }, true)} onClose={() => update({ item: null }, true)} />}
+    {promptOpen && <ArenaDialog title={text.contributionDialog} locale={state.locale} onClose={() => setPromptOpen(false)} compact>
+      <div className={styles.promptContent}>
+        <pre className={styles.promptText}>{prompt}</pre>
+        <div className={styles.promptActions}><CopyButton value={prompt} label={text.copyPrompt} locale={state.locale} /></div>
+      </div>
+    </ArenaDialog>}
   </ArenaShell>
 }

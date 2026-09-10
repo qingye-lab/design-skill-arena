@@ -304,6 +304,8 @@ const baseShowcases: ShowcaseItem[] = [
 ]
 
 const models = [
+  { model: "Hy4", provider: "HY", slug: "hy-4" },
+  { model: "DeepSeek V4.1 flash", provider: "DeepSeek", slug: "deepseek-v4.1-flash" },
   { model: "GPT-5.5", provider: "OpenAI", slug: "gpt-55" },
   { model: "Qwen 3.7 Max", provider: "Alibaba Cloud", slug: "qwen-37-max" },
   { model: "Kimi 2.7 Code", provider: "Moonshot", slug: "kimi-2.7-code" },
@@ -354,6 +356,8 @@ const registeredShowcases: ShowcaseItem[] = [
 ]
 
 const modelDisplayOrder = [
+  "Hy4",
+  "DeepSeek V4.1 flash",
   "Fable 5.1",
   "GPT 6 Astra",
   "Claude Opus 5",
