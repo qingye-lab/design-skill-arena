@@ -1,7 +1,6 @@
 "use client"
 
 import dynamic from "next/dynamic"
-import Link from "next/link"
 import { useMemo, useRef, useState } from "react"
 import { ArrowUpRight, ChevronLeft, ChevronRight, Search, SlidersHorizontal, X } from "lucide-react"
 import { showcases } from "@/data/showcases"
@@ -10,7 +9,7 @@ import type { PublicArenaSkill } from "@/lib/public-arena-skills"
 import { assetUrl } from "@/lib/assets"
 import { contributionContext } from "@/lib/arena-context"
 import { arenaCopy } from "./arena-copy"
-import { ArenaShell, localeHref } from "./arena-shell"
+import { ArenaShell } from "./arena-shell"
 import { ArenaDialog, CopyButton, SearchFilter } from "./arena-controls"
 import { ShowcaseCard } from "./showcase-card"
 import { useArenaLocation } from "./use-arena-location"
@@ -48,7 +47,7 @@ export function HomePage({ sources }: { sources: PublicArenaSkill[] }) {
     <main id="main-content">
       {state.repaired && !dismissedRepair && <div className={styles.notice} role="status"><span>{text.shareRepair}</span><button className={styles.iconButton} aria-label={text.dismiss} onClick={() => { setDismissedRepair(true); update({}, true) }}><X size={16} /></button></div>}
         <section className={styles.intro}>
-          <div className={styles.introContent}><div className={styles.eyebrow}><span className={styles.editionDot} />{models.length} {text.modelsCount} / {chains.length} {text.chainsCount}</div><h1><span>{text.headline[0]}</span><span>{text.headline[1]}</span></h1><Link href={localeHref("/methodology/#brief", state.locale)} className={styles.briefLink}><span className={styles.small}>{text.brief}</span><strong>{text.briefName}</strong><ArrowUpRight size={15} /></Link></div>
+          <div className={styles.introContent}><div className={styles.eyebrow}><span className={styles.editionDot} />{models.length} {text.modelsCount} / {chains.length} {text.chainsCount}</div><h1><span>{text.headline[0]}</span><span>{text.headline[1]}</span></h1></div>
           <div className={styles.heroComposition}>
             <span className={styles.heroRegistration} aria-hidden="true">+</span>
             {heroWorks.map((item, index) => <button key={item.id} className={styles.heroPrint} onClick={() => open(item.id)} aria-label={`${text.viewWork}: ${item.model} · ${item.title}`}>

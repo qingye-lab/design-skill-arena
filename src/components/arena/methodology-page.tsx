@@ -30,6 +30,6 @@ export function MethodologyPage() {
         </div>
       </div>
     </main>
-    {promptOpen && <ArenaDialog title={text.contributionDialog} locale={state.locale} onClose={() => setPromptOpen(false)} compact><div className={styles.promptContent}><pre className={styles.promptText}>{prompt}</pre><CopyButton value={prompt} label={state.locale === "zh-CN" ? "复制贡献提示词" : "Copy contribution prompt"} locale={state.locale} /></div></ArenaDialog>}
+    {promptOpen && <ArenaDialog title={text.contributionDialog} locale={state.locale} onClose={() => setPromptOpen(false)} compact><div className={styles.promptContent}><pre className={styles.promptText}>{prompt}</pre><CopyButton value={prompt} label={text.copyContribution} locale={state.locale} /></div></ArenaDialog>}
   </ArenaShell>
 }

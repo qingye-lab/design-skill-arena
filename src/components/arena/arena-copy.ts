@@ -3,6 +3,7 @@ const copy = {
   "zh-CN": {
     works: "作品", skills: "Skills", method: "项目简报", contribute: "贡献作品",
     menu: "导航菜单", close: "关闭", skip: "跳至主要内容", github: "GitHub 项目",
+    authorSite: "个人站", language: "界面语言", promptAction: "复制提示词", copyContribution: "复制提示词",
      headline: ["同一个需求，", "看见设计的不同。"],
     brief: "共同任务", briefName: "Muse · AI Campaign Studio",
     modelsCount: "个模型", chainsCount: "种组合", worksCount: "件作品", collection: "作品集",
@@ -39,6 +40,7 @@ const copy = {
   "en-US": {
     works: "Collection", skills: "Skills", method: "Brief", contribute: "Contribute",
     menu: "Navigation menu", close: "Close", skip: "Skip to content", github: "GitHub project",
+    authorSite: "Personal site", language: "Interface language", promptAction: "Copy prompt", copyContribution: "Copy prompt",
      headline: ["One shared brief.", "A world of different design."],
     brief: "THE SHARED BRIEF", briefName: "Muse · AI Campaign Studio",
     modelsCount: "models", chainsCount: "chains", worksCount: "works", collection: "The collection",
