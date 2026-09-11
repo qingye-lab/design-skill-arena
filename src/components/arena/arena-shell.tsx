@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useEffect, useRef, type ReactNode } from "react"
-import { ArrowUpRight, Check, Copy, Globe, Menu } from "lucide-react"
+import { ArrowUpRight, Check, Globe, Menu } from "lucide-react"
 import type { ArenaLocale } from "@/lib/arena-gallery"
 import { arenaCopy } from "./arena-copy"
 import styles from "./arena.module.css"
@@ -51,7 +51,7 @@ export function ArenaShell({ locale, onLocaleChange, current, children, onPrompt
         </Link>
         <nav className={styles.nav} aria-label={text.menu}>
           {links.map((link) => <Link key={link.key} href={localeHref(link.href, locale)} aria-current={current === link.key ? "page" : undefined}>{link.label}</Link>)}
-          {onPromptOpen && <button className={styles.promptAction} onClick={onPromptOpen}><Copy size={14} /><span>{text.promptAction}</span></button>}
+          {onPromptOpen && <button className={styles.promptAction} onClick={onPromptOpen}>{text.promptAction}</button>}
         </nav>
         <div className={styles.navSecondary}>
           <a className={styles.outboundLink} href={authorUrl} target="_blank" rel="noreferrer">{text.authorSite}</a>
@@ -66,7 +66,7 @@ export function ArenaShell({ locale, onLocaleChange, current, children, onPrompt
             <summary className={styles.iconButton} aria-label={text.menu}><Menu size={19} /></summary>
             <nav aria-label={text.menu}>
               {links.map((link) => <Link key={link.key} href={localeHref(link.href, locale)} aria-current={current === link.key ? "page" : undefined} onClick={(event) => event.currentTarget.closest("details")?.removeAttribute("open")}>{link.label}</Link>)}
-              {onPromptOpen && <button onClick={(event) => { onPromptOpen(); event.currentTarget.closest("details")?.removeAttribute("open") }}><Copy size={14} />{text.promptAction}</button>}
+              {onPromptOpen && <button onClick={(event) => { onPromptOpen(); event.currentTarget.closest("details")?.removeAttribute("open") }}>{text.promptAction}</button>}
               <a href={authorUrl} target="_blank" rel="noreferrer">{text.authorSite}</a>
               <a href={projectUrl} target="_blank" rel="noreferrer"><GithubMark size={14} />GitHub</a>
               <div className={styles.mobileLanguages}>{languages.map((item) => <button key={item.locale} aria-pressed={locale === item.locale} onClick={(event) => { pickLocale(item.locale); event.currentTarget.closest("details")?.removeAttribute("open") }}><span>{item.label}</span>{locale === item.locale && <Check size={13} />}</button>)}</div>

@@ -14,8 +14,7 @@
 .nav a { display:flex; min-height:44px; align-items:center; color:var(--muted); font-size:13px; }
 .nav a[aria-current=page] { color:var(--accent); }
 .navSecondary { display:flex; align-items:center; gap:18px; padding-left:22px; border-left:1px solid var(--line); }
-.promptAction { display:inline-flex; align-items:center; gap:7px; min-height:44px; padding:0; border:0; background:transparent; color:var(--muted); font-size:13px; }
-.promptAction>svg { color:var(--muted); }
+.promptAction { display:inline-flex; align-items:center; min-height:44px; padding:0; border:0; background:transparent; color:var(--muted); font-size:13px; }
 .promptAction:hover { color:var(--ink); }
 .outboundLink { display:inline-flex; align-items:center; min-height:44px; color:var(--muted); font-size:13px; }
 .outboundLink:hover { color:var(--ink); }
