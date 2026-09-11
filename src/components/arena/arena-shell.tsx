@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useEffect, useRef, type ReactNode } from "react"
-import { ArrowUpRight, Check, FileText, Globe, Menu } from "lucide-react"
+import { ArrowUpRight, Check, Copy, Globe, Menu } from "lucide-react"
 import type { ArenaLocale } from "@/lib/arena-gallery"
 import { arenaCopy } from "./arena-copy"
 import styles from "./arena.module.css"
@@ -18,12 +18,11 @@ export function localeHref(path: string, locale: ArenaLocale) {
   return `${url.pathname}${url.search}${url.hash}`
 }
 
-export function ArenaShell({ locale, onLocaleChange, current, children, collectionHref = "/", onPromptOpen }: {
+export function ArenaShell({ locale, onLocaleChange, current, children, onPromptOpen }: {
   locale: ArenaLocale
   onLocaleChange: (locale: ArenaLocale) => void
   current: "works" | "skills" | "method"
   children: ReactNode
-  collectionHref?: string
   onPromptOpen?: () => void
 }) {
   const text = arenaCopy(locale)
@@ -40,7 +39,6 @@ export function ArenaShell({ locale, onLocaleChange, current, children, collecti
     if (next !== locale) onLocaleChange(next)
   }
   const links = [
-    { key: "works", href: collectionHref, label: text.works },
     { key: "skills", href: "/skills/", label: text.skills },
   ]
   return <div className={styles.shell}>
@@ -53,9 +51,11 @@ export function ArenaShell({ locale, onLocaleChange, current, children, collecti
         </Link>
         <nav className={styles.nav} aria-label={text.menu}>
           {links.map((link) => <Link key={link.key} href={localeHref(link.href, locale)} aria-current={current === link.key ? "page" : undefined}>{link.label}</Link>)}
+          {onPromptOpen && <button className={styles.promptAction} onClick={onPromptOpen}><Copy size={14} /><span>{text.promptAction}</span></button>}
         </nav>
         <div className={styles.navSecondary}>
-          {onPromptOpen && <button className={`${styles.iconButton} ${styles.promptAction}`} onClick={onPromptOpen}><FileText size={13} /><span>{text.promptAction}</span></button>}
+          <a className={styles.outboundLink} href={authorUrl} target="_blank" rel="noreferrer">{text.authorSite}</a>
+          <a className={styles.outboundLink} href={projectUrl} target="_blank" rel="noreferrer" aria-label={text.github}><GithubMark size={16} /></a>
           <details className={styles.languageSwitch} ref={languageRef} onToggle={(event) => { if (event.currentTarget.open) event.currentTarget.parentElement?.querySelector(`.${styles.mobileMenu}`)?.removeAttribute("open") }}>
             <summary className={styles.languageSummary} aria-label={text.language} title={text.language}><Globe size={15} /><span>{locale === "zh-CN" ? "中" : "EN"}</span></summary>
             <div className={styles.languagePanel} role="group" aria-label={text.language}>
@@ -66,9 +66,9 @@ export function ArenaShell({ locale, onLocaleChange, current, children, collecti
             <summary className={styles.iconButton} aria-label={text.menu}><Menu size={19} /></summary>
             <nav aria-label={text.menu}>
               {links.map((link) => <Link key={link.key} href={localeHref(link.href, locale)} aria-current={current === link.key ? "page" : undefined} onClick={(event) => event.currentTarget.closest("details")?.removeAttribute("open")}>{link.label}</Link>)}
-              {onPromptOpen && <button onClick={(event) => { onPromptOpen(); event.currentTarget.closest("details")?.removeAttribute("open") }}><FileText size={13} />{text.promptAction}</button>}
+              {onPromptOpen && <button onClick={(event) => { onPromptOpen(); event.currentTarget.closest("details")?.removeAttribute("open") }}><Copy size={14} />{text.promptAction}</button>}
               <a href={authorUrl} target="_blank" rel="noreferrer">{text.authorSite}</a>
-              <a href={projectUrl} target="_blank" rel="noreferrer"><GithubMark size={13} />GitHub</a>
+              <a href={projectUrl} target="_blank" rel="noreferrer"><GithubMark size={14} />GitHub</a>
               <div className={styles.mobileLanguages}>{languages.map((item) => <button key={item.locale} aria-pressed={locale === item.locale} onClick={(event) => { pickLocale(item.locale); event.currentTarget.closest("details")?.removeAttribute("open") }}><span>{item.label}</span>{locale === item.locale && <Check size={13} />}</button>)}</div>
             </nav>
           </details>
@@ -78,14 +78,8 @@ export function ArenaShell({ locale, onLocaleChange, current, children, collecti
       <footer className={styles.footer}>
         <p>{text.footer}</p>
         <div className={styles.footerMeta}>
-          <Link className={styles.footerBrief} href={localeHref("/methodology/#brief", locale)}><span className={styles.small}>{text.brief}</span><strong>{text.briefName}</strong><ArrowUpRight size={14} /></Link>
-          <div className={styles.footerLinks}>
-            <Link className={styles.textLink} href={localeHref("/methodology/#contribute", locale)}>{text.contribute}<ArrowUpRight size={14} /></Link>
-            <span className={styles.footerSite}>
-              <a className={styles.textLink} href={authorUrl} target="_blank" rel="noreferrer">{text.authorSite}</a>
-              <a className={styles.textLink} href={projectUrl} target="_blank" rel="noreferrer" aria-label={text.github}><GithubMark size={16} /></a>
-            </span>
-          </div>
+          <Link className={styles.footerBrief} href={localeHref("/methodology/#brief", locale)}><span className={styles.small}>{text.brief}</span><strong>{text.briefName}</strong></Link>
+          <Link className={styles.footerContribute} href={localeHref("/methodology/#contribute", locale)}>{text.contribute}<ArrowUpRight size={14} /></Link>
         </div>
       </footer>
     </div>

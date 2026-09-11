@@ -4,7 +4,7 @@ import dynamic from "next/dynamic"
 import { useMemo, useRef, useState } from "react"
 import { ArrowUpRight, ChevronLeft, ChevronRight, Search, SlidersHorizontal, X } from "lucide-react"
 import { showcases } from "@/data/showcases"
-import { arenaHref, chainId, galleryItems, galleryPageSize, getChains, getModels, modelSlug, pageNumbers, type ArenaState } from "@/lib/arena-gallery"
+import { chainId, galleryItems, galleryPageSize, getChains, getModels, modelSlug, pageNumbers, type ArenaState } from "@/lib/arena-gallery"
 import type { PublicArenaSkill } from "@/lib/public-arena-skills"
 import { assetUrl } from "@/lib/assets"
 import { contributionContext } from "@/lib/arena-context"
@@ -43,7 +43,7 @@ export function HomePage({ sources }: { sources: PublicArenaSkill[] }) {
     update({ page })
     requestAnimationFrame(() => { collectionRef.current?.scrollIntoView({ block: "start" }); collectionRef.current?.focus({ preventScroll: true }) })
   }
-  return <ArenaShell locale={state.locale} onLocaleChange={(locale) => update({ locale })} current="works" collectionHref={arenaHref("/", state, { item: null })} onPromptOpen={() => setPromptOpen(true)}>
+  return <ArenaShell locale={state.locale} onLocaleChange={(locale) => update({ locale })} current="works" onPromptOpen={() => setPromptOpen(true)}>
     <main id="main-content">
       {state.repaired && !dismissedRepair && <div className={styles.notice} role="status"><span>{text.shareRepair}</span><button className={styles.iconButton} aria-label={text.dismiss} onClick={() => { setDismissedRepair(true); update({}, true) }}><X size={16} /></button></div>}
         <section className={styles.intro}>
