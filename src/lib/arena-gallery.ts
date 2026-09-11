@@ -32,39 +32,25 @@ export function getModels(items: ShowcaseItem[]) {
   return Array.from(new Map(items.map((item) => [modelSlug(item), item])).values())
 }
 
-/** An editorial browsing order. Every registered work appears exactly once. */
-export function explorationOrder(items: ShowcaseItem[]) {
-  const models = getModels(items)
-  const chains = getChains(items)
-  if (!chains.length) return []
-  const byPair = new Map(items.map((item) => [`${modelSlug(item)}:${chainId(item)}`, item]))
-  const result: ShowcaseItem[] = []
-  const seen = new Set<string>()
-  for (let round = 0; round < chains.length; round++) {
-    models.forEach((model, index) => {
-      const chain = chains[(round + index * 5) % chains.length]
-      const item = byPair.get(`${modelSlug(model)}:${chainId(chain)}`)
-      if (item && !seen.has(item.id)) {
-        result.push(item)
-        seen.add(item.id)
-      }
-    })
-  }
-  return [...result, ...items.filter((item) => !seen.has(item.id))]
-}
-
 export function galleryItems(
   items: ShowcaseItem[],
   state: Pick<ArenaState, "model" | "chain" | "query">
 ) {
-  const ordered = state.model === "all" && state.chain === "all" ? explorationOrder(items) : items
   const query = state.query.trim().toLocaleLowerCase()
-  return ordered.filter((item) =>
+  return items.filter((item) =>
     (state.model === "all" || modelSlug(item) === state.model) &&
     (state.chain === "all" || chainId(item) === state.chain) &&
     (!query || [item.model, item.title, item.skillChainLabel, item.focus, ...item.tags]
       .join(" ").toLocaleLowerCase().includes(query))
   )
+}
+
+export function galleryPageSize(
+  items: ShowcaseItem[],
+  state: Pick<ArenaState, "model" | "chain" | "query">
+) {
+  const isDefaultCollection = state.model === "all" && state.chain === "all" && !state.query.trim()
+  return isDefaultCollection ? Math.max(1, getModels(items).length) : GALLERY_PAGE_SIZE
 }
 
 export function parseArenaState(href: string, items: ShowcaseItem[]): ArenaState {
@@ -81,7 +67,8 @@ export function parseArenaState(href: string, items: ShowcaseItem[]): ArenaState
   const rawPage = params.get("page") || "1"
   const requestedPage = /^\d+$/.test(rawPage) ? Number(rawPage) : 1
   const query = (params.get("q") || "").slice(0, 160)
-  const pageCount = Math.max(1, Math.ceil(galleryItems(items, { model, chain, query }).length / GALLERY_PAGE_SIZE))
+  const galleryState = { model, chain, query }
+  const pageCount = Math.max(1, Math.ceil(galleryItems(items, galleryState).length / galleryPageSize(items, galleryState)))
   const page = Math.max(1, Math.min(Number.isSafeInteger(requestedPage) ? requestedPage : 1, pageCount))
   const device = params.get("device")
   return {

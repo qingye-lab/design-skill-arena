@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 import { showcases } from "@/data/showcases"
 import { skills } from "@/data/skills"
-import { arenaHref, chainId, explorationOrder, galleryItems, getChains, getModels, modelSlug, pageNumbers, parseArenaState } from "@/lib/arena-gallery"
+import { arenaHref, chainId, galleryItems, galleryPageSize, getChains, getModels, modelSlug, pageNumbers, parseArenaState } from "@/lib/arena-gallery"
 import { chainContext, contributionContext, designIntent } from "@/lib/arena-context"
 import { getPublicArenaSkills } from "@/lib/public-arena-skills"
 
@@ -9,20 +9,20 @@ const first = showcases[0]
 
 function parse(query: string) { return parseArenaState(`/${query}`, showcases) }
 
-describe("gallery exploration and fixed conditions", () => {
-  it("covers the catalogue exactly once, deterministically, with different models and chains in the opening row", () => {
-    const ordered = explorationOrder(showcases)
-    expect(ordered).toEqual(explorationOrder(showcases))
-    expect(new Set(ordered.map((item) => item.id))).toEqual(new Set(showcases.map((item) => item.id)))
-    expect(ordered).toHaveLength(showcases.length)
-    expect(new Set(ordered.slice(0, 3).map(modelSlug)).size).toBe(3)
-    expect(new Set(ordered.slice(0, 3).map(chainId)).size).toBe(3)
-  })
-  it("retains every available work when the catalogue is incomplete", () => {
-    const partial = showcases.filter((_, index) => index % 4 !== 0)
-    expect(explorationOrder(partial)).toHaveLength(partial.length)
-    expect(new Set(explorationOrder(partial).map((item) => item.id))).toEqual(new Set(partial.map((item) => item.id)))
-    expect(explorationOrder([])).toEqual([])
+describe("gallery grouping and fixed conditions", () => {
+  it("keeps each skill chain together on a complete default page", () => {
+    const state = { model: "all", chain: "all", query: "" }
+    const ordered = galleryItems(showcases, state)
+    const pageSize = galleryPageSize(showcases, state)
+    const firstPage = ordered.slice(0, pageSize)
+    const secondPage = ordered.slice(pageSize, pageSize * 2)
+
+    expect(ordered).toEqual(showcases)
+    expect(pageSize).toBe(getModels(showcases).length)
+    expect(new Set(firstPage.map(chainId))).toEqual(new Set([chainId(firstPage[0])]))
+    expect(firstPage.map(modelSlug)).toEqual(getModels(showcases).map(modelSlug))
+    expect(new Set(secondPage.map(chainId))).toEqual(new Set([chainId(secondPage[0])]))
+    expect(chainId(secondPage[0])).not.toBe(chainId(firstPage[0]))
   })
   it("uses the canonical chain order when a model is fixed, and the canonical model order when a chain is fixed", () => {
     const modelWorks = galleryItems(showcases, { model: modelSlug(first), chain: "all", query: "" })

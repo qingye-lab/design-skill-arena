@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useMemo, useRef, useState } from "react"
 import { ArrowUpRight, ChevronLeft, ChevronRight, Search, SlidersHorizontal, X } from "lucide-react"
 import { showcases } from "@/data/showcases"
-import { arenaHref, chainId, galleryItems, GALLERY_PAGE_SIZE, getChains, getModels, modelSlug, pageNumbers, type ArenaState } from "@/lib/arena-gallery"
+import { arenaHref, chainId, galleryItems, galleryPageSize, getChains, getModels, modelSlug, pageNumbers, type ArenaState } from "@/lib/arena-gallery"
 import type { PublicArenaSkill } from "@/lib/public-arena-skills"
 import { assetUrl } from "@/lib/assets"
 import { contributionContext } from "@/lib/arena-context"
@@ -30,8 +30,9 @@ export function HomePage({ sources }: { sources: PublicArenaSkill[] }) {
   const [dismissedRepair, setDismissedRepair] = useState(false)
   const collectionRef = useRef<HTMLHeadingElement>(null)
   const filtered = useMemo(() => galleryItems(showcases, state), [state])
-  const pageCount = Math.max(1, Math.ceil(filtered.length / GALLERY_PAGE_SIZE))
-  const pageItems = filtered.slice((state.page - 1) * GALLERY_PAGE_SIZE, state.page * GALLERY_PAGE_SIZE)
+  const pageSize = galleryPageSize(showcases, state)
+  const pageCount = Math.max(1, Math.ceil(filtered.length / pageSize))
+  const pageItems = filtered.slice((state.page - 1) * pageSize, state.page * pageSize)
   const selectedItem = showcases.find((item) => item.id === state.item)
   const votes = useArenaVotes(pageItems.map((item) => item.id))
   const activeFilters = state.model !== "all" || state.chain !== "all" || Boolean(state.query)
