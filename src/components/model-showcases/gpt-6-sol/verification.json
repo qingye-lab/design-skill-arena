@@ -1,0 +1,277 @@
+{
+  "generatedAt": "2026-09-22T23:19:08.333Z",
+  "model": "GPT-6 Sol",
+  "modelId": "gpt-6-sol",
+  "pages": [
+    {
+      "id": "standard-builder",
+      "url": "/model-showcase/gpt-6-sol/standard-builder",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 900
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1666
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "visual-frontend",
+      "url": "/model-showcase/gpt-6-sol/visual-frontend",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 1081
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1440
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "design-logic",
+      "url": "/model-showcase/gpt-6-sol/design-logic",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 915
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1617
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "impeccable-full-flow",
+      "url": "/model-showcase/gpt-6-sol/impeccable-full-flow",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 1001
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1703
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "artifact-builder",
+      "url": "/model-showcase/gpt-6-sol/artifact-builder",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 900
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1349
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "ux-pro-reference",
+      "url": "/model-showcase/gpt-6-sol/ux-pro-reference",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 1122
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 2020
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "component-system",
+      "url": "/model-showcase/gpt-6-sol/component-system",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 1051
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1599
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "motion-bits",
+      "url": "/model-showcase/gpt-6-sol/motion-bits",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 1234
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1662
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "standard-taste",
+      "url": "/model-showcase/gpt-6-sol/standard-taste",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 1032
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1678
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "standard-impeccable",
+      "url": "/model-showcase/gpt-6-sol/standard-impeccable",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 1169
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1736
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "visual-taste",
+      "url": "/model-showcase/gpt-6-sol/visual-taste",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 1388
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1657
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "visual-impeccable",
+      "url": "/model-showcase/gpt-6-sol/visual-impeccable",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 1170
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1545
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "design-ux-pro",
+      "url": "/model-showcase/gpt-6-sol/design-ux-pro",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 997
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1761
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "design-impeccable",
+      "url": "/model-showcase/gpt-6-sol/design-impeccable",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 1093
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1682
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "balanced-chain",
+      "url": "/model-showcase/gpt-6-sol/balanced-chain",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 900
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1693
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "visual-premium-chain",
+      "url": "/model-showcase/gpt-6-sol/visual-premium-chain",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 1385
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1712
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "product-polish-chain",
+      "url": "/model-showcase/gpt-6-sol/product-polish-chain",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 900
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 1730
+      },
+      "runtimeErrors": []
+    },
+    {
+      "id": "max-quality-chain",
+      "url": "/model-showcase/gpt-6-sol/max-quality-chain",
+      "desktop": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "height": 900
+      },
+      "mobile": {
+        "width": 390,
+        "scrollWidth": 390,
+        "height": 2118
+      },
+      "runtimeErrors": []
+    }
+  ]
+}

@@ -22,6 +22,8 @@ process.env.PLAYWRIGHT_BROWSERS_PATH ??= "0"
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const modelNames = new Map([
+  ["gpt-6-sol", "GPT-6 Sol"],
+  ["gpt-6-luna", "GPT-6 Luna"],
   ["fable-5.1", "Fable 5.1"],
   ["glm-5.3-flash", "GLM 5.3 Flash"],
   ["gpt-6-astra", "GPT 6 Astra"],

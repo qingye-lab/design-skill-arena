@@ -1,0 +1,2339 @@
+.page {
+  --paper: #f4f1ea;
+  --surface: #fbfaf7;
+  --ink: #1b211f;
+  --muted: #68706a;
+  --line: #d4d4cb;
+  --accent: #3459d2;
+  --accent-ink: #fff;
+  min-height: 100svh;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  transition: color 240ms ease, background 240ms ease;
+}
+
+.page *,
+.page *::before,
+.page *::after {
+  box-sizing: border-box;
+}
+
+.page button,
+.page input,
+.page select,
+.page textarea {
+  font: inherit;
+}
+
+.page button,
+.page select {
+  cursor: pointer;
+}
+
+.page :is(button, a, textarea, select):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 74%, white);
+  outline-offset: 3px;
+}
+
+.identityBar {
+  display: grid;
+  grid-template-columns: 110px minmax(140px, 1fr) auto minmax(220px, 1.1fr);
+  align-items: center;
+  min-height: 76px;
+  padding: 0 clamp(18px, 4vw, 56px);
+  border-bottom: 1px solid var(--line);
+  gap: 24px;
+}
+
+.museMark {
+  width: fit-content;
+  color: var(--ink);
+  text-decoration: none;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  letter-spacing: -0.08em;
+}
+
+.museMark span {
+  display: inline-block;
+  margin-left: 3px;
+  vertical-align: top;
+  font-family: sans-serif;
+  font-size: 9px;
+  letter-spacing: 0;
+}
+
+.identityProduct,
+.modelIdentity,
+.skillIdentity {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.identityProduct span,
+.modelIdentity span,
+.skillIdentity > span {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.identityProduct strong,
+.modelIdentity strong,
+.skillIdentity strong {
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.modelIdentity {
+  padding-left: 22px;
+  border-left: 1px solid var(--line);
+}
+
+.modelIdentity > span {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.skillIdentity strong {
+  overflow-wrap: anywhere;
+  font-weight: 500;
+}
+
+.liveNotice {
+  position: fixed;
+  z-index: 10;
+  top: 90px;
+  right: 22px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  max-width: min(390px, calc(100vw - 36px));
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: 0 14px 40px #16231c1a;
+  font-size: 12px;
+  animation: notice-in 240ms ease both;
+}
+
+.page[data-phase="ready"] .liveNotice {
+  display: none;
+}
+
+.page[data-phase="loading"] .liveNotice svg {
+  color: var(--accent);
+}
+
+.page[data-phase="success"] .liveNotice svg {
+  color: #278052;
+}
+
+.page[data-phase="error"] .liveNotice {
+  border-color: #c8483f;
+  color: #8e271f;
+  background: #fff3ef;
+}
+
+.workspace {
+  width: min(100%, 1720px);
+  margin: 0 auto;
+  padding: 26px clamp(18px, 4vw, 56px) 52px;
+}
+
+.pageTitle {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.pageTitle h1 {
+  margin: 0;
+  font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
+  font-size: clamp(32px, 4.2vw, 61px);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 0.98;
+}
+
+.pageTitle p {
+  max-width: 360px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.panel {
+  min-width: 0;
+  padding: 19px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.panelHeading,
+.recentHeading,
+.forecastHeading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.panelHeading h2,
+.recentHeading h2,
+.forecastHeading h2 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.panelHeading > span,
+.recentHeading > span,
+.forecastHeading > span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.briefField,
+.selectField {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.briefField > label,
+.selectField > label {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.briefField textarea,
+.selectField select {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  background: var(--surface);
+  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.briefField textarea {
+  min-height: 122px;
+  padding: 11px 12px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.selectField select {
+  padding: 0 36px 0 12px;
+}
+
+.briefField textarea:hover,
+.selectField select:hover {
+  border-color: color-mix(in srgb, var(--accent) 48%, var(--line));
+}
+
+.briefField textarea[aria-invalid="true"] {
+  border-color: #c8483f;
+  background: #fff7f5;
+}
+
+.fieldHelper {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.fieldError {
+  color: #a62d23;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.controlsCompact {
+  gap: 9px;
+}
+
+.variantPicker {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-width: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.variantButton {
+  display: flex;
+  min-width: 0;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  background: transparent;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.variantButton:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+}
+
+.variantButton[aria-selected="true"] {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
+.variantButton > span {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.variantButton small {
+  font-size: 11px;
+}
+
+.campaignPreview {
+  min-width: 0;
+}
+
+.campaignImage {
+  position: relative;
+  display: flex;
+  min-height: 430px;
+  align-items: flex-start;
+  overflow: hidden;
+  background-color: #d3d3cc;
+  background-image: url("/model-assets/gpt-6-luna/morrow-arc-coast.webp");
+  background-position: center 58%;
+  background-size: cover;
+  isolation: isolate;
+  transition: filter 260ms ease, background-position 420ms ease;
+}
+
+.campaignImage::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(244 241 234 / 78%) 0%, rgb(244 241 234 / 44%) 35%, transparent 67%);
+  content: "";
+}
+
+.campaignPreview[data-variant="B"] .campaignImage {
+  background-position: 60% 46%;
+}
+
+.campaignPreview[data-variant="B"] .campaignImage::before {
+  background: linear-gradient(115deg, rgb(247 239 219 / 76%) 0%, rgb(247 239 219 / 25%) 46%, transparent 73%);
+}
+
+.campaignPreview[data-variant="C"] .campaignImage {
+  background-position: 73% 60%;
+  filter: saturate(0.84) brightness(0.92);
+}
+
+.campaignPreview[data-variant="C"] .campaignImage::before {
+  background: linear-gradient(90deg, rgb(25 32 34 / 58%) 0%, rgb(25 32 34 / 18%) 54%, transparent 100%);
+}
+
+.campaignPreview[data-variant="C"] .campaignCopy {
+  color: #fff;
+}
+
+.campaignPreview[data-visual="night-cinema"] .campaignImage {
+  filter: saturate(0.72) brightness(0.78);
+}
+
+.campaignPreview[data-visual="studio-minimal"] .campaignImage {
+  background-position: center 70%;
+}
+
+.campaignPreview[data-visual="botanical-still-life"] .campaignImage {
+  filter: saturate(0.74) sepia(0.08);
+}
+
+.campaignCopy {
+  display: flex;
+  width: min(53%, 490px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 13px;
+  padding: clamp(23px, 3.3vw, 48px);
+  color: #1b211f;
+}
+
+.campaignBrand {
+  margin-bottom: auto;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.campaignCopy h2 {
+  margin: 26px 0 0;
+  font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
+  font-size: clamp(34px, 4.2vw, 64px);
+  font-weight: 500;
+  letter-spacing: -0.07em;
+  line-height: 0.98;
+}
+
+.campaignCopy p {
+  max-width: 290px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.campaignCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid currentColor;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.campaignEdition {
+  position: absolute;
+  right: 17px;
+  bottom: 15px;
+  color: #fff;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-shadow: 0 1px 8px #0008;
+}
+
+.previewCaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 10px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.forecast {
+  min-width: 0;
+}
+
+.forecastHeading > span {
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.forecast dl {
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+
+.forecast dl > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+
+.forecast dt {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.forecast dd {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+}
+
+.forecastInline dl {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.forecastInline dl > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 0;
+}
+
+.forecastInline dd {
+  font-size: 28px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.actions button {
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 650;
+  transition: transform 170ms ease, color 170ms ease, border-color 170ms ease, background 170ms ease;
+}
+
+.actions button:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.actions button:active {
+  transform: translateY(0);
+}
+
+.actions .generateButton {
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  background: var(--accent);
+}
+
+.actions .generateButton:hover {
+  filter: brightness(1.08);
+}
+
+.actions button:disabled {
+  cursor: progress;
+  opacity: 0.72;
+}
+
+.spinner {
+  animation: spin 900ms linear infinite;
+}
+
+.recentCampaigns {
+  min-width: 0;
+}
+
+.recentHeading {
+  margin-bottom: 7px;
+}
+
+.recentCampaigns ul {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recentCampaigns li {
+  min-width: 0;
+  border-top: 1px solid var(--line);
+}
+
+.recentCampaigns li > button {
+  display: grid;
+  width: 100%;
+  min-height: 66px;
+  grid-template-columns: 48px minmax(0, 1fr) 16px;
+  align-items: center;
+  gap: 11px;
+  padding: 8px 0;
+  border: 0;
+  color: var(--ink);
+  background: transparent;
+  text-align: left;
+}
+
+.recentCampaigns li > button:hover .recentText strong {
+  color: var(--accent);
+}
+
+.recentThumb {
+  width: 48px;
+  height: 43px;
+  border-radius: 4px;
+  background: #d3d3cc url("/model-assets/gpt-6-luna/morrow-arc-coast.webp") 69% 60% / 220% auto;
+}
+
+.recentCampaigns li:nth-child(2) .recentThumb {
+  background-position: 82% 60%;
+  filter: saturate(0.72);
+}
+
+.recentCampaigns li:nth-child(3) .recentThumb {
+  background-position: 55% 54%;
+  filter: brightness(0.78) saturate(0.7);
+}
+
+.recentText {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.recentText strong {
+  overflow: hidden;
+  font-size: 11px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recentText small {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.recentCampaigns li > button > svg {
+  color: var(--muted);
+}
+
+.recentSkeleton {
+  display: grid;
+  gap: 11px;
+  padding: 10px 0;
+}
+
+.recentSkeleton i {
+  display: block;
+  width: 100%;
+  height: 13px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--line), color-mix(in srgb, var(--surface) 55%, var(--line)), var(--line));
+  background-size: 200% 100%;
+  animation: shimmer 1.2s ease infinite;
+}
+
+.recentSkeleton i:nth-child(2) {
+  width: 83%;
+}
+
+.recentSkeleton i:nth-child(3) {
+  width: 68%;
+}
+
+.skillStamp {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10px;
+}
+
+/* 01 · The standard builder keeps inputs, live canvas, and forecast in three balanced lanes. */
+.page[data-design="standard-builder"] {
+  --paper: #f4f1ea;
+  --surface: #fbfaf7;
+  --accent: #3459d2;
+}
+
+.layoutStandardBuilder {
+  display: grid;
+  grid-template-columns: minmax(238px, 0.82fr) minmax(400px, 1.56fr) minmax(220px, 0.72fr);
+  align-items: start;
+  gap: clamp(18px, 2vw, 30px);
+}
+
+.standardForm,
+.standardPreview,
+.standardInsight {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 17px;
+}
+
+.standardForm .briefField textarea {
+  min-height: 152px;
+}
+
+.standardPreview .campaignImage {
+  min-height: 500px;
+}
+
+/* 02 · The visual-first canvas owns most of the width; tools remain a compact side dock. */
+.page[data-design="visual-frontend"] {
+  --paper: #11161b;
+  --surface: #1b242a;
+  --ink: #f5f1e8;
+  --muted: #b5c0c2;
+  --line: #3a464a;
+  --accent: #f4b38a;
+  --accent-ink: #201a16;
+}
+
+.layoutVisualFrontend {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 326px;
+  align-items: start;
+  gap: 26px;
+}
+
+.visualCanvas,
+.visualDock {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 15px;
+}
+
+.visualCanvas .campaignImage {
+  min-height: min(68vw, 680px);
+}
+
+.visualCanvas .campaignCopy {
+  width: min(58%, 560px);
+}
+
+.visualDock .panel {
+  border-radius: 3px;
+}
+
+.visualDock .campaignControls {
+  display: grid;
+  gap: 14px;
+}
+
+.visualDock .campaignControls .briefField textarea {
+  min-height: 88px;
+}
+
+/* 03 · Design logic reads like a ruled planning sheet with a numbered spine. */
+.page[data-design="design-logic"] {
+  --paper: #f1f0e9;
+  --surface: #f8f7f1;
+  --ink: #202825;
+  --muted: #5f6a65;
+  --line: #b8c2bb;
+  --accent: #be3e31;
+  --accent-ink: #fff;
+}
+
+.layoutDesignLogic {
+  display: grid;
+  grid-template-columns: 82px minmax(230px, 0.78fr) minmax(420px, 1.7fr);
+  gap: 0;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+}
+
+.logicIndex {
+  padding: 22px 12px;
+  border-right: 1px solid var(--line);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 56px;
+  letter-spacing: -0.1em;
+  line-height: 0.9;
+}
+
+.logicForm,
+.logicCanvas {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 18px;
+  padding: 21px;
+}
+
+.logicForm {
+  border-right: 1px solid var(--line);
+}
+
+.logicCanvas .campaignImage {
+  min-height: 440px;
+  border-radius: 0;
+}
+
+.logicBottom {
+  display: grid;
+  grid-template-columns: 1fr minmax(210px, 0.7fr);
+  align-items: end;
+  gap: 20px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+/* 04 · The full-flow design follows one brief through a clear three-step sequence. */
+.page[data-design="impeccable-full-flow"] {
+  --paper: #111a1b;
+  --surface: #192526;
+  --ink: #eff4ed;
+  --muted: #b0c2ba;
+  --line: #39494a;
+  --accent: #aadfbd;
+  --accent-ink: #14221a;
+}
+
+.layoutImpeccableFlow {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.73fr) minmax(450px, 1.75fr);
+  align-items: start;
+  gap: 26px;
+}
+
+.flowIntro {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 4px 0 19px;
+  border-bottom: 1px solid var(--line);
+}
+
+.flowIntro .pageTitle {
+  margin: 0;
+}
+
+.flowSteps {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.flowSteps li {
+  display: grid;
+  min-height: 49px;
+  grid-template-columns: 30px 1fr;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  counter-increment: step;
+}
+
+.flowSteps li::before {
+  color: var(--accent);
+  content: "0" counter(step);
+  font-size: 10px;
+}
+
+.flowSteps li[aria-current="step"] {
+  color: var(--ink);
+}
+
+.flowAside,
+.flowStage {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 17px;
+}
+
+.flowAside .panel {
+  border-radius: 3px;
+}
+
+.flowStage .campaignImage {
+  min-height: 496px;
+}
+
+.flowBottom {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 24px;
+}
+
+/* 05 · Artifact Builder lays out files, work surface, and inspector like a production editor. */
+.page[data-design="artifact-builder"] {
+  --paper: #0f1b20;
+  --surface: #13262b;
+  --ink: #e7f0e9;
+  --muted: #a5bdb8;
+  --line: #385053;
+  --accent: #9de4c9;
+  --accent-ink: #0b2118;
+}
+
+.layoutArtifactBuilder {
+  display: grid;
+  min-height: 740px;
+  grid-template-columns: 180px minmax(420px, 1.6fr) minmax(300px, 0.85fr);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.artifactRail,
+.artifactCanvas,
+.artifactInspector {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 17px;
+  padding: 19px;
+}
+
+.artifactRail,
+.artifactCanvas {
+  border-right: 1px solid var(--line);
+}
+
+.artifactRail {
+  background: #102126;
+}
+
+.artifactRail h2,
+.artifactInspector h2 {
+  margin: 0;
+  font-family: ui-monospace, "SFMono-Regular", monospace;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.artifactFile {
+  display: block;
+  padding: 10px 8px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-family: ui-monospace, "SFMono-Regular", monospace;
+  font-size: 10px;
+}
+
+.artifactFile[aria-current="page"] {
+  color: var(--accent);
+  background: #1d3939;
+}
+
+.artifactCanvas .pageTitle h1 {
+  font-family: ui-monospace, "SFMono-Regular", monospace;
+  font-size: clamp(26px, 3vw, 42px);
+  letter-spacing: -0.08em;
+}
+
+.artifactCanvas .campaignImage {
+  min-height: 466px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+.artifactInspector .briefField textarea,
+.artifactInspector .selectField select {
+  border-radius: 2px;
+}
+
+.artifactInspector .controls {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* 06 · UX Pro keeps the journey visible beside a single focused canvas and forecast. */
+.page[data-design="ux-pro-reference"] {
+  --paper: #edf4f5;
+  --surface: #fff;
+  --ink: #193844;
+  --muted: #5a7179;
+  --line: #c8d9de;
+  --accent: #08718b;
+  --accent-ink: #fff;
+}
+
+.layoutUxPro {
+  display: grid;
+  grid-template-columns: 204px minmax(245px, 0.85fr) minmax(380px, 1.35fr);
+  align-items: start;
+  gap: 22px;
+}
+
+.uxJourney {
+  position: sticky;
+  top: 20px;
+  display: grid;
+  gap: 0;
+  padding: 19px 17px;
+  border-radius: 14px;
+  background: #dcebef;
+}
+
+.uxJourney h2 {
+  margin: 0 0 14px;
+  font-size: 16px;
+}
+
+.uxJourney button {
+  display: flex;
+  min-height: 50px;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  border-top: 1px solid #c1d4da;
+  color: var(--muted);
+  background: transparent;
+  text-align: left;
+  font-size: 11px;
+}
+
+.uxJourney button span {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.uxJourney button[aria-current="step"] {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.uxInput,
+.uxPreview {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 16px;
+}
+
+.uxInput .panel,
+.uxPreview .panel {
+  box-shadow: 0 10px 30px #2048580b;
+}
+
+.uxPreview .campaignImage {
+  min-height: 416px;
+}
+
+.uxFooter {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 18px;
+}
+
+.uxJourney a {
+  display: flex;
+  min-height: 50px;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid #c1d4da;
+  color: var(--muted);
+  font-size: 11px;
+  text-decoration: none;
+}
+
+.uxJourney a span {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.uxJourney a[aria-current="step"] {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* 07 · Component System turns the workbench into a small pattern library beside the live ad. */
+.page[data-design="component-system"] {
+  --paper: #f7f8fa;
+  --surface: #fff;
+  --ink: #1f2730;
+  --muted: #5f6e7b;
+  --line: #d9e1e7;
+  --accent: #4c56b8;
+  --accent-ink: #fff;
+}
+
+.layoutComponentSystem {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  align-items: start;
+  gap: 25px;
+}
+
+.componentIndex {
+  display: grid;
+  gap: 0;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.componentIndex h2 {
+  margin: 0 0 13px;
+  font-size: 12px;
+}
+
+.componentIndex span {
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.componentIndex span[aria-current="page"] {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.componentMain {
+  display: grid;
+  min-width: 0;
+  gap: 18px;
+}
+
+.componentTop {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(230px, 0.65fr);
+  gap: 18px;
+}
+
+.componentTop .campaignImage {
+  min-height: 405px;
+}
+
+.componentInspector {
+  display: grid;
+  align-content: start;
+  gap: 13px;
+}
+
+.tokenStrip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.tokenStrip span {
+  min-width: 0;
+  padding: 13px 15px;
+  border-right: 1px solid var(--line);
+  font-size: 10px;
+}
+
+.tokenStrip span:last-child {
+  border-right: 0;
+}
+
+.tokenStrip i {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 7px;
+  vertical-align: middle;
+  border-radius: 4px;
+  background: var(--accent);
+}
+
+/* 08 · Motion Bits puts direction changes on an animated timeline, with restrained stage movement. */
+.page[data-design="motion-bits"] {
+  --paper: #0d1124;
+  --surface: #191d37;
+  --ink: #f4f5ff;
+  --muted: #b5bfd8;
+  --line: #3b4369;
+  --accent: #83dff1;
+  --accent-ink: #101727;
+}
+
+.layoutMotionBits {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 295px;
+  align-items: start;
+  gap: 24px;
+}
+
+.motionStage,
+.motionSide {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 16px;
+}
+
+.motionStage .pageTitle h1 {
+  font-family: "Avenir Next", Avenir, sans-serif;
+  font-size: clamp(38px, 5vw, 76px);
+  font-weight: 650;
+  letter-spacing: -0.075em;
+}
+
+.motionStage .campaignImage {
+  min-height: min(55vw, 560px);
+  border-radius: 22px;
+}
+
+.motionStage .campaignPreview[data-variant="B"] .campaignImage,
+.motionStage .campaignPreview[data-variant="C"] .campaignImage {
+  animation: direction-settle 420ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.motionTrack {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+}
+
+.motionTrack span {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 9px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.motionTrack span::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  content: "";
+  animation: track-pulse 1.5s ease-in-out infinite alternate;
+}
+
+.motionTrack span:nth-child(2)::before {
+  animation-delay: 180ms;
+}
+
+.motionTrack span:nth-child(3)::before {
+  animation-delay: 360ms;
+}
+
+.motionSide .panel {
+  border-radius: 17px;
+}
+
+.motionSide .controls {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* 09 · Taste balances a quiet editorial canvas with a compact editing column. */
+.page[data-design="standard-taste"] {
+  --paper: #f7f7f1;
+  --surface: #fdfdf9;
+  --ink: #202a26;
+  --muted: #68766f;
+  --line: #d3ddd6;
+  --accent: #315842;
+  --accent-ink: #fff;
+}
+
+.layoutStandardTaste {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.78fr) minmax(420px, 1.6fr);
+  gap: clamp(26px, 5vw, 72px);
+}
+
+.tasteStory {
+  display: grid;
+  align-content: start;
+  gap: 20px;
+  padding-top: 5px;
+}
+
+.tasteStory .pageTitle {
+  align-items: start;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tasteStory .pageTitle h1 {
+  max-width: 400px;
+  font-size: clamp(42px, 5vw, 70px);
+}
+
+.tasteStory .briefField textarea {
+  min-height: 170px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+}
+
+.tasteStory .controls {
+  grid-template-columns: 1fr;
+}
+
+.tasteStory .selectField select {
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+}
+
+.tasteCanvas {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+}
+
+.tasteCanvas .campaignImage {
+  min-height: 570px;
+}
+
+/* 10 · Standard + Impeccable uses a monochrome information frame with one acid-lime action. */
+.page[data-design="standard-impeccable"] {
+  --paper: #e9e9e5;
+  --surface: #f8f8f5;
+  --ink: #101310;
+  --muted: #555d57;
+  --line: #b8beb7;
+  --accent: #c5e761;
+  --accent-ink: #18200a;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.layoutStandardImpeccable {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.52fr);
+  grid-template-areas: "canvas canvas" "form data";
+  align-items: stretch;
+  gap: 15px;
+}
+
+.impeccableBrief,
+.impeccableCanvas,
+.impeccableData {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 15px;
+  padding: 17px;
+  border: 1px solid var(--ink);
+  background: var(--surface);
+}
+
+.impeccableBrief { grid-area: form; }
+.impeccableCanvas { grid-area: canvas; }
+.impeccableData { grid-area: data; }
+
+.impeccableBrief .pageTitle h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.07em;
+}
+
+.impeccableBrief .controls {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.impeccableCanvas .campaignImage {
+  min-height: 520px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+}
+
+.impeccableCanvas .variantPicker {
+  border: 1px solid var(--ink);
+}
+
+.impeccableCanvas .variantButton[aria-selected="true"] {
+  color: var(--ink);
+  background: var(--accent);
+}
+
+.impeccableData .forecast dl > div {
+  border-color: var(--ink);
+}
+
+/* 11 · Visual + Taste borrows the rhythm of a printed culture journal, with an open campaign spread. */
+.page[data-design="visual-taste"] {
+  --paper: #f2eadc;
+  --surface: #fcf8f0;
+  --ink: #342b24;
+  --muted: #76685b;
+  --line: #cbbca9;
+  --accent: #994c38;
+  --accent-ink: #fff8ed;
+}
+
+.layoutVisualTaste {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(275px, 0.7fr);
+  align-items: start;
+  gap: clamp(23px, 4vw, 58px);
+}
+
+.journalLead {
+  display: grid;
+  align-content: start;
+  gap: 17px;
+}
+
+.journalLead .pageTitle h1 {
+  max-width: 800px;
+  font-size: clamp(44px, 6vw, 86px);
+  letter-spacing: -0.075em;
+}
+
+.journalLead .campaignImage {
+  min-height: 510px;
+}
+
+.journalLead .campaignCopy h2 {
+  max-width: 370px;
+  font-size: clamp(42px, 5vw, 72px);
+}
+
+.journalSide {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  padding-top: 11px;
+}
+
+.journalSide .controls {
+  grid-template-columns: 1fr;
+}
+
+.journalSide .briefField textarea {
+  min-height: 116px;
+  background: transparent;
+}
+
+.journalData {
+  padding-top: 15px;
+  border-top: 2px solid var(--ink);
+}
+
+/* 12 · Visual + Impeccable gives the campaign a clean, bright stage with a floating control column. */
+.page[data-design="visual-impeccable"] {
+  --paper: #f2f5f3;
+  --surface: #fff;
+  --ink: #14221f;
+  --muted: #536762;
+  --line: #cedbd5;
+  --accent: #16856f;
+  --accent-ink: #fff;
+}
+
+.layoutVisualImpeccable {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr) minmax(270px, 0.52fr);
+  align-items: start;
+  gap: 20px;
+}
+
+.visualRail {
+  position: sticky;
+  top: 16px;
+  display: grid;
+  gap: 8px;
+  padding: 9px 5px;
+  border: 1px solid var(--line);
+  border-radius: 36px;
+  background: var(--surface);
+}
+
+.visualRail .variantButton {
+  flex-direction: column;
+  gap: 3px;
+  min-height: 58px;
+  border: 0;
+  border-radius: 28px;
+}
+
+.visualRail .variantButton[aria-selected="true"] {
+  color: #fff;
+  background: var(--accent);
+}
+
+.visualRail .variantButton small {
+  font-size: 8px;
+}
+
+.visualImpeccableCanvas,
+.visualInspector {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 17px;
+}
+
+.visualImpeccableCanvas .pageTitle h1 {
+  font-family: "Avenir Next", sans-serif;
+  font-size: clamp(36px, 4vw, 58px);
+  font-weight: 700;
+}
+
+.visualImpeccableCanvas .campaignImage {
+  min-height: 610px;
+  border-radius: 18px 3px 18px 3px;
+}
+
+.visualInspector {
+  position: sticky;
+  top: 18px;
+  padding: 17px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: var(--surface);
+}
+
+.visualInspector .controls {
+  grid-template-columns: 1fr;
+}
+
+.visualInspector .briefField textarea {
+  min-height: 95px;
+}
+
+/* 13 · Design + UX Pro places decisions in a readable launch sequence before results. */
+.page[data-design="design-ux-pro"] {
+  --paper: #eef3f8;
+  --surface: #fff;
+  --ink: #202d40;
+  --muted: #586980;
+  --line: #cad5e0;
+  --accent: #35689a;
+  --accent-ink: #fff;
+}
+
+.layoutDesignUxPro {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.75fr) minmax(390px, 1.3fr) minmax(220px, 0.67fr);
+  align-items: start;
+  gap: 20px;
+}
+
+.uxProBrief,
+.uxProPreview,
+.uxProSummary {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 15px;
+}
+
+.uxProBrief .pageTitle h1 {
+  font-family: "Avenir Next", sans-serif;
+  font-size: 34px;
+  font-weight: 650;
+  letter-spacing: -0.06em;
+}
+
+.uxProBrief .controls {
+  grid-template-columns: 1fr;
+}
+
+.uxProPreview .campaignImage {
+  min-height: 480px;
+}
+
+.uxProSummary .panel {
+  border-radius: 18px;
+}
+
+.uxProSummary .forecast dd {
+  font-family: "Avenir Next", sans-serif;
+  font-size: 24px;
+  font-weight: 650;
+}
+
+/* 14 · Design + Impeccable frames one rich campaign image in an archivist's dark-green proof sheet. */
+.page[data-design="design-impeccable"] {
+  --paper: #17221d;
+  --surface: #202e27;
+  --ink: #f0eee3;
+  --muted: #bdc9b9;
+  --line: #526354;
+  --accent: #e2c677;
+  --accent-ink: #202314;
+}
+
+.layoutDesignImpeccable {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(290px, 0.49fr);
+  align-items: start;
+  gap: 27px;
+}
+
+.archiveCanvas {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.archiveCanvas .pageTitle h1 {
+  max-width: 700px;
+  font-size: clamp(45px, 6vw, 90px);
+}
+
+.archiveCanvas .campaignImage {
+  min-height: 595px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+.archiveInspector {
+  display: grid;
+  align-content: start;
+  gap: 15px;
+  padding-left: 22px;
+  border-left: 1px solid var(--line);
+}
+
+.archiveInspector .controls {
+  grid-template-columns: 1fr;
+}
+
+.archiveInspector .briefField textarea,
+.archiveInspector .selectField select {
+  border-radius: 2px;
+  background: transparent;
+}
+
+.archiveInspector .forecast dd {
+  color: var(--accent);
+}
+
+/* 15 · The balanced chain gives brief, audience, and canvas equal visual weight. */
+.page[data-design="balanced-chain"] {
+  --paper: #eff0e9;
+  --surface: #f8f8f3;
+  --ink: #252b26;
+  --muted: #666d64;
+  --line: #c4ccc1;
+  --accent: #394a37;
+  --accent-ink: #fff;
+}
+
+.layoutBalancedChain {
+  display: grid;
+  grid-template-columns: minmax(245px, 0.77fr) minmax(360px, 1.1fr) minmax(250px, 0.78fr);
+  align-items: start;
+  gap: 18px;
+}
+
+.balancedBrief,
+.balancedCanvas,
+.balancedReview {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 14px;
+}
+
+.balancedBrief .pageTitle h1 {
+  font-size: 38px;
+}
+
+.balancedBrief .controls {
+  grid-template-columns: 1fr;
+}
+
+.balancedCanvas .campaignImage {
+  min-height: 490px;
+}
+
+.balancedReview .forecast {
+  padding: 13px 16px;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+}
+
+/* 16 · Visual Premium gives the campaign a tall art-directed frame and parks tools below it. */
+.page[data-design="visual-premium-chain"] {
+  --paper: #ece5f2;
+  --surface: #f9f6fb;
+  --ink: #241d30;
+  --muted: #675c70;
+  --line: #c9bed4;
+  --accent: #6840a5;
+  --accent-ink: #fff;
+}
+
+.layoutVisualPremium {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 26px;
+}
+
+.premiumCanvas {
+  position: relative;
+  min-width: 0;
+  padding: 0 0 22px 28px;
+}
+
+.premiumCanvas::before {
+  position: absolute;
+  z-index: 0;
+  top: 30px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #d9cee7;
+  content: "";
+}
+
+.premiumCanvas > * {
+  position: relative;
+  z-index: 1;
+}
+
+.premiumCanvas .pageTitle h1 {
+  max-width: 770px;
+  font-size: clamp(50px, 7vw, 100px);
+}
+
+.premiumCanvas .campaignImage {
+  min-height: 580px;
+  aspect-ratio: 4 / 3;
+  box-shadow: 0 28px 70px #39254b25;
+}
+
+.premiumCanvas .variantPicker {
+  max-width: 460px;
+  margin-top: 14px;
+}
+
+.premiumTools {
+  display: grid;
+  grid-template-columns: minmax(210px, 1fr) minmax(320px, 1.25fr) minmax(190px, 0.7fr) minmax(230px, 0.95fr);
+  align-items: start;
+  gap: 16px;
+  padding: 17px 20px;
+  background: var(--surface);
+  box-shadow: 0 14px 45px #39254b14;
+}
+
+.premiumTools .controls {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.premiumTools .briefField textarea {
+  min-height: 112px;
+}
+
+/* 17 · Product Polish uses a calm app inspector, clear field groups, and a media-led primary column. */
+.page[data-design="product-polish-chain"] {
+  --paper: #f5f6f6;
+  --surface: #fff;
+  --ink: #222b33;
+  --muted: #65727d;
+  --line: #d5dde3;
+  --accent: #255f78;
+  --accent-ink: #fff;
+  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+}
+
+.layoutProductPolish {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.72fr) minmax(400px, 1.35fr) minmax(240px, 0.75fr);
+  align-items: start;
+  gap: 17px;
+}
+
+.polishForm,
+.polishPreview,
+.polishSide {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 15px;
+}
+
+.polishForm .panel,
+.polishSide .panel {
+  border-radius: 14px;
+  box-shadow: 0 1px 3px #223b4b0a, 0 8px 20px #223b4b08;
+}
+
+.polishForm .controls {
+  grid-template-columns: 1fr;
+}
+
+.polishPreview .campaignImage {
+  min-height: 492px;
+  border-radius: 14px;
+}
+
+.polishSide .forecast dd {
+  font-family: "Avenir Next", sans-serif;
+  font-size: 23px;
+  font-weight: 650;
+}
+
+/* 18 · Max Quality gives the launch a command-room frame around a single immersive creative. */
+.page[data-design="max-quality-chain"] {
+  --paper: #101619;
+  --surface: #172125;
+  --ink: #edf0e9;
+  --muted: #b3c0ba;
+  --line: #37484a;
+  --accent: #d5a96d;
+  --accent-ink: #211a11;
+}
+
+.layoutMaxQuality {
+  display: grid;
+  grid-template-columns: 172px minmax(0, 1fr) 284px;
+  align-items: stretch;
+  gap: 0;
+  min-height: 700px;
+  border: 1px solid var(--line);
+}
+
+.maxRail,
+.maxStage,
+.maxInspector {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 16px;
+  padding: 17px;
+}
+
+.maxRail,
+.maxStage {
+  border-right: 1px solid var(--line);
+}
+
+.maxRail {
+  background: #121e20;
+}
+
+.maxRail h2 {
+  margin: 0 0 3px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 19px;
+  font-weight: 400;
+}
+
+.maxRail span {
+  padding: 9px 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.maxRail span[aria-current="page"] {
+  color: var(--accent);
+}
+
+.maxStage .pageTitle h1 {
+  font-size: clamp(36px, 4vw, 58px);
+}
+
+.maxStage .campaignImage {
+  min-height: 520px;
+}
+
+.maxInspector .controls {
+  grid-template-columns: 1fr;
+}
+
+.maxInspector .briefField textarea {
+  min-height: 110px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  to { background-position: -200% 0; }
+}
+
+@keyframes notice-in {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes direction-settle {
+  from { opacity: 0.8; transform: scale(1.008); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes track-pulse {
+  to { opacity: 0.44; transform: scale(1.24); }
+}
+
+@media (max-width: 1100px) {
+  .identityBar {
+    grid-template-columns: 80px minmax(120px, 1fr) auto;
+  }
+
+  .skillIdentity {
+    grid-column: 2 / -1;
+    padding-bottom: 13px;
+  }
+
+  .layoutStandardBuilder,
+  .layoutDesignUxPro,
+  .layoutProductPolish {
+    grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.3fr);
+  }
+
+  .standardInsight,
+  .uxProSummary,
+  .polishSide {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .layoutArtifactBuilder {
+    grid-template-columns: 145px minmax(0, 1fr) 270px;
+  }
+
+  .layoutMaxQuality {
+    grid-template-columns: 130px minmax(0, 1fr) 250px;
+  }
+
+  .premiumTools {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .identityBar {
+    min-height: 68px;
+    grid-template-columns: 70px minmax(110px, 1fr) auto;
+    gap: 13px;
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .modelIdentity {
+    padding-left: 12px;
+  }
+
+  .modelIdentity span {
+    font-size: 9px;
+  }
+
+  .skillIdentity {
+    grid-column: 2 / -1;
+    margin-top: -6px;
+    padding: 0 0 11px;
+  }
+
+  .workspace {
+    padding: 22px 18px 38px;
+  }
+
+  .layoutStandardBuilder,
+  .layoutVisualFrontend,
+  .layoutDesignLogic,
+  .layoutImpeccableFlow,
+  .layoutArtifactBuilder,
+  .layoutUxPro,
+  .layoutComponentSystem,
+  .layoutMotionBits,
+  .layoutStandardTaste,
+  .layoutStandardImpeccable,
+  .layoutVisualTaste,
+  .layoutVisualImpeccable,
+  .layoutDesignUxPro,
+  .layoutDesignImpeccable,
+  .layoutBalancedChain,
+  .layoutVisualPremium,
+  .layoutProductPolish,
+  .layoutMaxQuality {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .layoutDesignLogic .logicIndex {
+    padding: 10px 0 0;
+    border: 0;
+    font-size: 40px;
+  }
+
+  .layoutDesignLogic .logicForm,
+  .layoutDesignLogic .logicCanvas {
+    padding: 0;
+    border: 0;
+  }
+
+  .flowIntro {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .layoutArtifactBuilder {
+    min-height: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .layoutArtifactBuilder .artifactRail {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    gap: 5px;
+    padding: 8px;
+    border: 1px solid var(--line);
+  }
+
+  .layoutArtifactBuilder .artifactRail h2 {
+    flex: 0 0 auto;
+    margin: 0 8px;
+  }
+
+  .layoutArtifactBuilder .artifactFile {
+    flex: 0 0 auto;
+    border-top: 0;
+  }
+
+  .layoutArtifactBuilder .artifactCanvas,
+  .layoutArtifactBuilder .artifactInspector {
+    padding: 0;
+    border: 0;
+  }
+
+  .componentIndex {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    gap: 15px;
+  }
+
+  .componentIndex h2 {
+    flex: 0 0 auto;
+    margin: 0;
+  }
+
+  .componentIndex span {
+    flex: 0 0 auto;
+    padding: 5px 0;
+    border-top: 0;
+  }
+
+  .componentTop {
+    grid-template-columns: 1fr;
+  }
+
+  .layoutVisualImpeccable .visualRail {
+    position: static;
+    display: flex;
+    width: 100%;
+    border-radius: 40px;
+  }
+
+  .layoutVisualImpeccable .visualRail .variantButton {
+    flex: 1;
+    flex-direction: row;
+    min-height: 44px;
+    border-radius: 30px;
+  }
+
+  .layoutVisualImpeccable .visualInspector {
+    position: static;
+  }
+
+  .layoutDesignImpeccable .archiveInspector {
+    padding: 0;
+    border-left: 0;
+  }
+
+  .premiumCanvas {
+    padding-left: 13px;
+  }
+
+  .premiumCanvas .campaignImage {
+    aspect-ratio: auto;
+  }
+
+  .premiumTools {
+    padding-top: 0;
+  }
+
+  .layoutMaxQuality {
+    min-height: 0;
+    border: 0;
+  }
+
+  .layoutMaxQuality .maxRail {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 11px;
+    border: 1px solid var(--line);
+  }
+
+  .layoutMaxQuality .maxRail h2 {
+    margin-right: 8px;
+  }
+
+  .layoutMaxQuality .maxRail span {
+    padding: 5px 0;
+    border-top: 0;
+  }
+
+  .layoutMaxQuality .maxStage,
+  .layoutMaxQuality .maxInspector {
+    padding: 0;
+    border: 0;
+  }
+
+  .premiumTools {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 15px;
+  }
+
+  .layoutStandardImpeccable .impeccableCanvas { order: 0; }
+  .layoutStandardImpeccable .impeccableBrief { order: 1; }
+  .layoutStandardImpeccable .impeccableData { order: 2; }
+
+  .uxFooter {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .identityBar {
+    grid-template-columns: 53px minmax(82px, 0.7fr) minmax(92px, 1fr);
+    gap: 10px;
+    padding: 11px 14px;
+  }
+
+  .museMark {
+    font-size: 22px;
+  }
+
+  .identityProduct span,
+  .modelIdentity span,
+  .skillIdentity > span {
+    font-size: 8px;
+  }
+
+  .identityProduct strong,
+  .modelIdentity strong,
+  .skillIdentity strong {
+    font-size: 10px;
+  }
+
+  .modelIdentity {
+    padding-left: 10px;
+  }
+
+  .skillIdentity {
+    grid-column: 2 / -1;
+    margin: 0;
+    padding: 0;
+  }
+
+  .workspace {
+    padding: 21px 14px 32px;
+  }
+
+  .pageTitle {
+    align-items: start;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 13px;
+  }
+
+  .pageTitle h1 {
+    font-size: clamp(33px, 10vw, 48px);
+  }
+
+  .panel {
+    padding: 14px;
+  }
+
+  .controls {
+    grid-template-columns: 1fr;
+  }
+
+  .briefField textarea {
+    min-height: 118px;
+  }
+
+  .campaignImage {
+    min-height: 390px;
+    background-position: 66% center;
+  }
+
+  .campaignImage::before {
+    background: linear-gradient(90deg, rgb(244 241 234 / 84%) 0%, rgb(244 241 234 / 35%) 62%, transparent 100%);
+  }
+
+  .campaignCopy {
+    width: min(78%, 360px);
+    gap: 10px;
+    padding: 19px;
+  }
+
+  .campaignCopy h2 {
+    margin-top: 38px;
+    font-size: clamp(37px, 11vw, 52px);
+  }
+
+  .campaignCopy p {
+    max-width: 230px;
+    font-size: 12px;
+  }
+
+  .variantButton {
+    min-height: 49px;
+    gap: 6px;
+  }
+
+  .variantButton small {
+    font-size: 9px;
+  }
+
+  .forecastInline dl {
+    gap: 4px;
+  }
+
+  .forecastInline dd {
+    font-size: 23px;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 7px;
+  }
+
+  .actions button {
+    min-height: 48px;
+    gap: 6px;
+    padding: 0 9px;
+    font-size: 11px;
+  }
+
+  .actions button svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .logicBottom,
+  .flowBottom {
+    grid-template-columns: 1fr;
+  }
+
+  .standardPreview .campaignImage,
+  .visualCanvas .campaignImage,
+  .logicCanvas .campaignImage,
+  .flowStage .campaignImage,
+  .artifactCanvas .campaignImage,
+  .uxPreview .campaignImage,
+  .componentTop .campaignImage,
+  .motionStage .campaignImage,
+  .tasteCanvas .campaignImage,
+  .impeccableCanvas .campaignImage,
+  .journalLead .campaignImage,
+  .visualImpeccableCanvas .campaignImage,
+  .uxProPreview .campaignImage,
+  .archiveCanvas .campaignImage,
+  .balancedCanvas .campaignImage,
+  .premiumCanvas .campaignImage,
+  .polishPreview .campaignImage,
+  .maxStage .campaignImage {
+    min-height: 390px;
+  }
+
+  .layoutDesignLogic .logicBottom,
+  .layoutBalancedChain .balancedReview {
+    gap: 14px;
+  }
+
+  .componentTop .campaignImage {
+    min-height: 360px;
+  }
+
+  .premiumTools {
+    grid-template-columns: 1fr;
+    padding: 14px;
+  }
+
+  .premiumTools .controls {
+    grid-template-columns: 1fr;
+  }
+
+  .tokenStrip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tokenStrip span:nth-child(2) {
+    border-right: 0;
+  }
+
+  .tokenStrip span:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+
+  .visualRail .variantButton small {
+    display: none;
+  }
+
+  .visualRail .variantButton {
+    min-height: 44px;
+  }
+
+  .layoutMotionBits .motionTrack span {
+    font-size: 9px;
+  }
+
+  .liveNotice {
+    top: auto;
+    right: 14px;
+    bottom: 14px;
+    left: 14px;
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page *,
+  .page *::before,
+  .page *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

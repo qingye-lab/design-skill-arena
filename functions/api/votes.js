@@ -1,4 +1,6 @@
 const MODEL_SLUGS = [
+  "gpt-6-sol",
+  "gpt-6-luna",
   "hy-4",
   "deepseek-v4.1-flash",
   "gpt-55",

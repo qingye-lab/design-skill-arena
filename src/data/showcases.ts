@@ -304,6 +304,8 @@ const baseShowcases: ShowcaseItem[] = [
 ]
 
 const models = [
+  { model: "GPT-6 Sol", provider: "OpenAI", slug: "gpt-6-sol" },
+  { model: "GPT-6 Luna", provider: "OpenAI", slug: "gpt-6-luna" },
   { model: "Hy4", provider: "HY", slug: "hy-4" },
   { model: "DeepSeek V4.1 flash", provider: "DeepSeek", slug: "deepseek-v4.1-flash" },
   { model: "GPT-5.5", provider: "OpenAI", slug: "gpt-55" },
@@ -356,6 +358,8 @@ const registeredShowcases: ShowcaseItem[] = [
 ]
 
 const modelDisplayOrder = [
+  "GPT-6 Sol",
+  "GPT-6 Luna",
   "Hy4",
   "DeepSeek V4.1 flash",
   "Fable 5.1",
