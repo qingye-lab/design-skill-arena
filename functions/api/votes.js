@@ -1,4 +1,5 @@
 const MODEL_SLUGS = [
+  "opus-5.5",
   "gpt-6-sol",
   "gpt-6-luna",
   "hy-4",

@@ -304,6 +304,7 @@ const baseShowcases: ShowcaseItem[] = [
 ]
 
 const models = [
+  { model: "Opus 5.5", provider: "Anthropic", slug: "opus-5.5" },
   { model: "GPT-6 Sol", provider: "OpenAI", slug: "gpt-6-sol" },
   { model: "GPT-6 Luna", provider: "OpenAI", slug: "gpt-6-luna" },
   { model: "Hy4", provider: "HY", slug: "hy-4" },
@@ -358,6 +359,7 @@ const registeredShowcases: ShowcaseItem[] = [
 ]
 
 const modelDisplayOrder = [
+  "Opus 5.5",
   "GPT-6 Sol",
   "GPT-6 Luna",
   "Hy4",

@@ -51,8 +51,10 @@ describe("shareable arena state", () => {
     expect(parseArenaState(arenaHref("/", state, { query }), showcases).query).toBe(query)
   })
   it("repairs missing works, removed filters, and out-of-range pages while retaining valid values", () => {
-    const state = parse(`?model=retired&chain=${chainId(first)}&page=999&item=removed`)
-    expect(state).toMatchObject({ model: "all", chain: chainId(first), page: 1, item: null, repaired: true })
+    const filtered = { model: "all", chain: chainId(first), query: "" }
+    const lastPage = Math.ceil(galleryItems(showcases, filtered).length / galleryPageSize(showcases, filtered))
+    const state = parse(`?model=retired&chain=${filtered.chain}&page=999&item=removed`)
+    expect(state).toMatchObject({ model: "all", chain: filtered.chain, page: lastPage, item: null, repaired: true })
     expect(parse("?page=-4").page).toBe(1)
     expect(parse("?page=NaN").page).toBe(1)
     expect(parse("?q=no-such-work&page=77").page).toBe(1)
