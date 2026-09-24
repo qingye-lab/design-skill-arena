@@ -193,18 +193,19 @@ function createVotesDb() {
 }
 
 describe("model release voting", () => {
-  it("accepts Fable, GLM, and DeepSeek targets and filters retired or unknown targets", async () => {
+  it("accepts Opus, Fable, GLM, and DeepSeek targets and filters retired or unknown targets", async () => {
     const db = createVotesDb()
     const response = await onRequestGet({
       env: { VOTES_DB: db },
       request: new Request(
-        "https://arena.example/api/votes?ids=fable-5.1-standard-builder,glm-5.3-flash-standard-builder,deepseek-v4-flash-standard-builder,ox-standard-builder,unknown-standard-builder"
+        "https://arena.example/api/votes?ids=opus-5.5-standard-builder,fable-5.1-standard-builder,glm-5.3-flash-standard-builder,deepseek-v4-flash-standard-builder,ox-standard-builder,unknown-standard-builder"
       ),
     })
 
     await expect(response.json()).resolves.toEqual({
       enabled: false,
       counts: {
+        "opus-5.5-standard-builder": 1,
         "fable-5.1-standard-builder": 1,
         "glm-5.3-flash-standard-builder": 1,
         "deepseek-v4-flash-standard-builder": 1,
